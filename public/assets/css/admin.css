@@ -11,8 +11,22 @@
 
 
 /*---------- General Styles -----------------*/
+body {
+	background: #efefef;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
 
 
+input[type=file] {
+	padding: 0 !important;
+}
 
 
 
@@ -27,6 +41,30 @@
 
 .italic {
 	font-style: italic;
+}
+
+
+.actionTitle {
+	padding: 10px;
+	background-color: #fff;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+	margin-bottom: 1em;
+}
+
+
+.form-group-container {
+	margin-top: 10px;
+	margin-bottom: 180px;
+	background-color: #fff;
+	color: #333;
+	box-shadow: 1px 2px 1px #dfdfe0,-1px -1px 0 #f2f2f2;
+	padding: 10px 20px 20px;
+	border-radius: 5px;
+}
+
+
+.add-admin-container {
+	margin-bottom: 20px !important;
 }
 
 
@@ -79,6 +117,7 @@
 	min-height: 100%;
 	padding: 0.8em 0 0.2em;
 	border-bottom: 1px solid #ccc;
+	margin-bottom: 0.4em !important;
 
 }
 

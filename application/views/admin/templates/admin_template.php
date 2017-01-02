@@ -21,9 +21,9 @@
 			</div><!-- /.row -->
 
 
-			<div class="container-fluid">
-				
-			</div><! --/.container-fluid -->
+			<div class="row">
+				<?php if(isset($main_view)){$this->load->view('admin/' . $main_view);} ?>
+			</div><!-- /.row -->
 			
 		</div><!-- /#rightCol -->
 
