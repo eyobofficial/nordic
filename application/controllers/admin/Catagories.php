@@ -10,6 +10,7 @@ class Catagories extends Admin_Controller {
 		parent::__construct();
 		$this->load->model(array('Catagory_model'));
 
+		$this->data['page_section'] = 'catagories';
 		$this->data['main_view'] = 'catagory/';
 	}
 

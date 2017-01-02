@@ -2,7 +2,7 @@
 	
 	<!-- TITLE HEADER -->
 	<header>
-		<h2 class="h4 text-left actionTitle"><span class="fa fa-book"></span> Add Catagory</h1>
+		<h2 class="h4 text-left actionTitle"><span class="fa fa-book"></span>&nbsp; Add Catagory</h1>
 	</header>
 
 
@@ -30,12 +30,15 @@
 			<!-- DEFAULT PICTURE -->
 			<div class="form-group">
 				<label for="defaultPic">Default Picture: </label>
-				<input type="file" name="default_pic" id="defaultPic" class="form-control">
+				<input type="file" name="default_pic" id="defaultPic">
 			</div><!-- /.form-group -->
 
 		</fieldset>
 		</div><!-- .form-group-container -->
 
+
+
+		<!-- SUBMIT INPUT BUTTON -->
 		<div class="form-group">
 			<input type="submit" name="submit" value="submit" class="btn btn-success btn-block">
 		</div><!-- .form-group -->

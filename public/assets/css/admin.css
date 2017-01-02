@@ -45,7 +45,7 @@ input[type=file] {
 
 
 .actionTitle {
-	padding: 10px;
+	padding: 12px 10px;
 	background-color: #fff;
 	box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 	margin-bottom: 1em;
@@ -126,6 +126,14 @@ input[type=file] {
 	background-color: green;
 }
 
+
+
+
+
+/*--------------- sideNav ------------------------*/
+nav a {
+	display: block;
+}
 
 
 

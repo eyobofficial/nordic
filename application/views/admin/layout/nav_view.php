@@ -4,12 +4,12 @@
 
 
 <!-- AMDIN PAGE NAVIGATION -->
-<nav class="row">
+<nav class="row" id="sideNav">
 	<ul class="list-unstyled">
 
 		<!-- MANAGE DASHBOARD -->
-		<li class="active">
-			<a href="#">
+		<li <?php if(isset($page_section) && strtolower($page_section) == 'dashboard'): ?> class="active" <?php endif; ?>>
+			<a href="<?php echo site_url('admin/dashboard'); ?>">
 				<span class="fa fa-home push-left"></span> &nbsp; &nbsp;
 				Dashboard
 				<span class="fa fa-chevron-down pull-right"></span>
@@ -18,8 +18,8 @@
 
 	
 		<!-- MANAGE CATAGORIES -->
-		<li>
-			<a href="#">
+		<li <?php if(isset($page_section) && strtolower($page_section) == 'catagories'): ?> class="active" <?php endif; ?> >
+			<a href="<?php echo site_url('admin/catagories'); ?>">
 				<span class="fa fa-book push-left"></span> &nbsp; &nbsp;
 				Catagories
 				<span class="fa fa-chevron-down pull-right"></span>
@@ -28,7 +28,7 @@
 
 
 		<!-- MANAGE EVENTS -->
-		<li>
+		<li  <?php if(isset($page_section) && strtolower($page_section) == 'events'): ?> class="active" <?php endif; ?>>
 			<a href="#">
 				<span class="fa fa-glass push-left"></span> &nbsp; &nbsp;
 				Events
@@ -39,7 +39,7 @@
 
 
 		<!-- MANAGE TICKETS -->
-		<li>
+		<li <?php if(isset($page_section) && strtolower($page_section) == 'tickets'): ?> class="active" <?php endif; ?>>
 			<a href="#">
 				<span class="fa fa-ticket push-left"></span> &nbsp; &nbsp;
 				Tickets
@@ -50,7 +50,7 @@
 
 
 		<!-- MANAGE ORDERS -->
-		<li>
+		<li  <?php if(isset($page_section) && strtolower($page_section) == 'orders'): ?> class="active" <?php endif; ?>>
 			<a href="#">
 				<span class="fa fa-usd push-left"></span> &nbsp; &nbsp;
 				Orders
@@ -60,7 +60,7 @@
 
 
 		<!-- MANAGE DELIVERY METHODS -->
-		<li>
+		<li  <?php if(isset($page_section) && strtolower($page_section) == 'delivery'): ?> class="active" <?php endif; ?>>
 			<a href="#">
 				<span class="fa fa-arrows-h push-left"></span> &nbsp; &nbsp;
 				Delivery
@@ -70,7 +70,7 @@
 
 
 		<!-- MANAGE USERS -->
-		<li>
+		<li  <?php if(isset($page_section) && strtolower($page_section) == 'users'): ?> class="active" <?php endif; ?>>
 			<a href="#">
 				<span class="fa fa-user push-left"></span> &nbsp; &nbsp;
 				Users
@@ -80,7 +80,7 @@
 
 
 		<!-- MANAGE MESSAGES -->
-		<li>
+		<li  <?php if(isset($page_section) && strtolower($page_section) == 'messages'): ?> class="active" <?php endif; ?>>
 			<a href="#">
 				<span class="fa fa-envelope push-left"></span> &nbsp; &nbsp;
 				Messages
@@ -90,7 +90,7 @@
 
 
 		<!-- MANAGE SETTINGS -->
-		<li>
+		<li  <?php if(isset($page_section) && strtolower($page_section) == 'settings'): ?> class="active" <?php endif; ?>>
 			<a href="#">
 				<span class="fa fa-sliders push-left"></span> &nbsp; &nbsp;
 				settings
