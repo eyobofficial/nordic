@@ -1,0 +1,99 @@
+/*******************************************************************************
+*
+* Main Admin Style CSS
+*
+*
+*
+*
+******************************************************************************/
+
+
+
+
+/*---------- General Styles -----------------*/
+
+
+
+
+
+
+
+
+/*----------- Common Styles -------------------------*/
+
+.bold {
+	font-weight: bold;
+}
+
+.italic {
+	font-style: italic;
+}
+
+
+
+
+/*--------------- LEFT COL ----------------------*/
+
+#leftCol {
+	min-height: 680px;
+}
+
+
+/*------ Branding -------------------*/
+#leftCol #brand-container {
+	margin-bottom: 6em;
+	font-weight: bold;
+	text-align: left;
+}
+
+
+#leftCol #brand-container h1 {
+	padding: 0;
+	margin-top: 0;
+}
+
+
+
+
+/*------ SideNavigation ------------*/
+#leftCol nav ul > li {
+	font-weight: normal;
+	margin-bottom: 0.8em;
+	padding: 0.5em 1.2em;
+}
+
+
+#leftCol nav ul > li > a {
+	text-decoration: none;
+}
+
+
+
+/*----------------------------------------- RIGHT COL Styles --------------------------------------*/
+/*--------- adminHeader ------------------*/
+
+.navbar-default {
+	border: none;
+	width: 100%;
+	border-radius: 0;
+	min-height: 100%;
+	padding: 0.8em 0 0.2em;
+	border-bottom: 1px solid #ccc;
+
+}
+
+.topIcons span.badge {
+	font-size: 8px;
+	background-color: green;
+}
+
+
+
+
+
+/*------------- adminFooter --------------------*/
+#adminFooter {
+	padding: 0.8em 1em 0.2em 0;
+	font-size: 11px;
+	font-weight: bold;
+}

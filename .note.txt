@@ -1,0 +1,47 @@
+List of controllers
+=====================
+- Events (Public)
+- Tickets (Public)
+- Pages (Public)
+- Users (Public)
+- Dashboard (Admin)
+- Checkout (Public)
+
+
+
+
+List of Views (need refactoring)
+====================
+- head_view
+- banner_view
+- nav_view
+- breadcrumb_view
+- main_view
+- tail_view
+- events_template
+- event_template
+- modal_template
+- login_modal
+- register_modal
+
+
+Database Tables
+=========================
+- events
+	=> event_id, 
+	=> event_type_id
+	-> 
+
+- tikcets
+- event_types
+- countries
+- users
+- guests
+- admins
+- pages
+- orders (purchases)
+- sessions
+- priv_types
+- currencies
+- delievery_methods
+- general

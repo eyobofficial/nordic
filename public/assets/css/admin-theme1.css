@@ -1,0 +1,69 @@
+/***************************************************************
+*
+*  Theme CSS for Admin
+*
+*   
+*
+**************************************************************/
+
+
+#leftCol {
+	background-color: #393939;	
+	color: #fff;
+}
+
+
+#leftCol #brand-container a {
+	color: #FF9900;
+	font-size: 20px;
+	font-weight: bold !important;
+}
+
+#leftCol #brand-container a:hover {
+	text-decoration: none;
+}
+
+#leftCol nav ul a {
+	color: #ccc;
+}
+
+
+#leftCol nav ul li:hover {
+	background-color: #6e6e6e;
+}
+
+
+#leftCol nav ul > li.active {
+	/* background-color: #1D2F3E; */
+	background-color: #6e6e6e;
+	border-top: 0.1px solid #333;
+	border-bottom: 0.1px solid #333;
+	border-left: 4px solid #FF9900;
+}
+
+#leftCol nav ul > li.active a {
+	/* color: #152737; */
+	color: #efefef;
+}
+
+
+/*----------------------------- RIGHT COLOUMNS ---------------------------------*/
+/********* Navbar **********************/
+.topIcons a {
+	color: #333;
+}
+
+.topIcons a:hover {
+	text-decoration: none;
+}
+
+
+
+
+/******** adminFooter *******************/
+#adminFooter {
+	border-top: 0.5px solid #ccc;
+	background: #000;
+	color: grey;
+}
+
