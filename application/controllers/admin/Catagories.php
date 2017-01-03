@@ -54,7 +54,7 @@ class Catagories extends Admin_Controller {
 	 */
 	public function add(){
 		$this->data['main_view'] .= 'add_catagory_view';
-
+		$this->data['page_title'] = 'Add Catagory';
 		$this->render('admin');
 	}
 

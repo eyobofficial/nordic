@@ -73,7 +73,7 @@ input[type=file] {
 /*--------------- LEFT COL ----------------------*/
 
 #leftCol {
-	min-height: 680px;
+	min-height: 720px;
 }
 
 
@@ -96,8 +96,7 @@ input[type=file] {
 /*------ SideNavigation ------------*/
 #leftCol nav ul > li {
 	font-weight: normal;
-	margin-bottom: 0.8em;
-	padding: 0.5em 1.2em;
+	padding: 0.8em 1.2em;
 }
 
 
@@ -133,6 +132,23 @@ input[type=file] {
 /*--------------- sideNav ------------------------*/
 nav a {
 	display: block;
+	margin-bottom: 0 !important;
+}
+
+nav .submenu {
+	background-color: #555;
+	margin-top: -5px !important;
+}
+
+nav .submenu li {
+	margin-left: 4em;
+	font-weight: bold !important;
+	list-style-type: square;
+}
+
+nav .submenu li:hover a {
+	color: #FF9900 !important;
+	background: #555;
 }
 
 

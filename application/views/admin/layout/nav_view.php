@@ -1,40 +1,46 @@
 <div id="brand-container">
-	<h1><a href="index.php" title="Admin"><?php echo strtoupper($site_name); ?></a></h1>
+	<h1><a href="<?php echo site_url('admin/'); ?>" title="Admin"><?php echo strtoupper($site_name); ?></a></h1>
 </div>
 
 
 <!-- AMDIN PAGE NAVIGATION -->
 <nav class="row" id="sideNav">
 	<ul class="list-unstyled">
-
+	
 		<!-- MANAGE DASHBOARD -->
-		<li <?php if(isset($page_section) && strtolower($page_section) == 'dashboard'): ?> class="active" <?php endif; ?>>
+		<?php echo open_menu($page_section, 'dashboard'); ?>
 			<a href="<?php echo site_url('admin/dashboard'); ?>">
-				<span class="fa fa-home push-left"></span> &nbsp; &nbsp;
-				Dashboard
-				<span class="fa fa-chevron-down pull-right"></span>
+				<span class="fa fa-home push-left"></span> &nbsp; &nbsp; Dashboard <span class="fa fa-chevron-down pull-right"></span>
 			</a>
-		</li>
+		<?php echo close_menu(); ?>
 
 	
 		<!-- MANAGE CATAGORIES -->
-		<li <?php if(isset($page_section) && strtolower($page_section) == 'catagories'): ?> class="active" <?php endif; ?> >
+		<?php echo open_menu($page_section, 'catagories'); ?>
 			<a href="<?php echo site_url('admin/catagories'); ?>">
-				<span class="fa fa-book push-left"></span> &nbsp; &nbsp;
-				Catagories
-				<span class="fa fa-chevron-down pull-right"></span>
+				<span class="fa fa-book push-left"></span> &nbsp; &nbsp; Catagories <span class="fa fa-chevron-down pull-right"></span>
 			</a>
-		</li>
+
+
+		<?php echo close_menu(); ?><!-- /End MANAGE CATAGORIES -->
+
+			<?php if(is_active($page_section, 'catagories')): ?>
+				<ul class="submenu list-unstyled">
+					<?php echo open_menu($page_title, 'Add Catagory'); ?>
+						<a href="<?php echo site_url('admin/catagories/add'); ?>"> Add Catagory </a>
+					<?php echo close_menu(); ?>
+
+				</ul>
+			<?php endif; ?>
+
 
 
 		<!-- MANAGE EVENTS -->
-		<li  <?php if(isset($page_section) && strtolower($page_section) == 'events'): ?> class="active" <?php endif; ?>>
+		<?php echo open_menu($page_section, 'events'); ?>
 			<a href="#">
-				<span class="fa fa-glass push-left"></span> &nbsp; &nbsp;
-				Events
-				<span class="fa fa-chevron-down pull-right"></span>
+				<span class="fa fa-glass push-left"></span> &nbsp; &nbsp; Events <span class="fa fa-chevron-down pull-right"></span>
 			</a>
-		</li>
+		<?php echo close_menu(); ?>
 
 
 
