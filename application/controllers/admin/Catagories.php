@@ -36,6 +36,7 @@ class Catagories extends Admin_Controller {
 	 */
 	public function all(){
 		$this->data['main_view'] .= 'all_catagories_view';
+		$this->data['page_title'] = 'All Catagories';
 
 		$this->render('admin');
 	}

@@ -11,25 +11,20 @@ function is_active($section, $menu_title){
 
 
 
-function check_nav($test_msg = 'Tessssst'){
-	global $page_section;
+function open_menu($section, $menu_title, $classes = array()){
 
-	return $page_section;
-}
-
-
-
-function open_menu($section, $menu_title){
-
-	$link_string  = '';    // Initialize
-	$link_string .= '<li ';
+	$link_string = '<li ';
 
 	if(is_active($section, $menu_title)){
-		$link_string .= ' class="active" ';
+		$classes[] = 'active';
+	}
+
+	if(!empty($classes)){
+		$class_string = implode($classes);		
+		$link_string .= ' class="' . $class_string . '"';
 	}
 
 	$link_string .= '>';
-
 	return $link_string;
 }
 

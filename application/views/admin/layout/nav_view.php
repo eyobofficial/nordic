@@ -5,12 +5,12 @@
 
 <!-- AMDIN PAGE NAVIGATION -->
 <nav class="row" id="sideNav">
-	<ul class="list-unstyled">
+	<ul class="list-unstyled" id="primaryMenu">
 	
 		<!-- MANAGE DASHBOARD -->
 		<?php echo open_menu($page_section, 'dashboard'); ?>
 			<a href="<?php echo site_url('admin/dashboard'); ?>">
-				<span class="fa fa-home push-left"></span> &nbsp; &nbsp; Dashboard <span class="fa fa-chevron-down pull-right"></span>
+				<span class="fa fa-home push-left"></span> &nbsp; &nbsp; Dashboard <span class="fa fa-chevron-right disabled pull-right"></span>
 			</a>
 		<?php echo close_menu(); ?>
 
@@ -18,14 +18,23 @@
 		<!-- MANAGE CATAGORIES -->
 		<?php echo open_menu($page_section, 'catagories'); ?>
 			<a href="<?php echo site_url('admin/catagories'); ?>">
-				<span class="fa fa-book push-left"></span> &nbsp; &nbsp; Catagories <span class="fa fa-chevron-down pull-right"></span>
+				<span class="fa fa-book push-left"></span> 
+					&nbsp; &nbsp; Catagories
+					<?php if(is_active($page_section, 'catagories')): ?>
+						<span class="fa fa-chevron-down pull-right">
+					<?php else: ?>
+						<span class="fa fa-chevron-right pull-right">
+					<?php endif; ?>
+				</span>
 			</a>
-
-
-		<?php echo close_menu(); ?><!-- /End MANAGE CATAGORIES -->
-
+			
 			<?php if(is_active($page_section, 'catagories')): ?>
 				<ul class="submenu list-unstyled">
+					<?php echo open_menu($page_title, 'All Catagories'); ?>
+						<a href="<?php echo site_url('admin/catagories'); ?>"> All Catagories </a>
+					<?php echo close_menu(); ?>
+
+
 					<?php echo open_menu($page_title, 'Add Catagory'); ?>
 						<a href="<?php echo site_url('admin/catagories/add'); ?>"> Add Catagory </a>
 					<?php echo close_menu(); ?>
@@ -33,13 +42,41 @@
 				</ul>
 			<?php endif; ?>
 
+		<?php echo close_menu(); ?><!-- /End MANAGE CATAGORIES -->
+
+			
+
 
 
 		<!-- MANAGE EVENTS -->
 		<?php echo open_menu($page_section, 'events'); ?>
-			<a href="#">
-				<span class="fa fa-glass push-left"></span> &nbsp; &nbsp; Events <span class="fa fa-chevron-down pull-right"></span>
+			<a href="<?php echo site_url('admin/events'); ?>">
+				<span class="fa fa-glass push-left"></span> 
+				&nbsp; &nbsp; Events 
+				<?php if(is_active($page_section, 'events')): ?>
+					<span class="fa fa-chevron-down pull-right">
+				<?php else: ?>
+					<span class="fa fa-chevron-right pull-right">
+				<?php endif; ?>
 			</a>
+
+			<!-- EVENTS SUBMENU (secondary menus) -->
+			<?php if(is_active($page_section, 'events')): ?>
+				<ul class="submenu list-unstyled">
+
+					<!-- ALL EVENTS -->
+					<?php echo open_menu($page_title, 'All Events'); ?>
+						<a href="<?php echo site_url('admin/events'); ?>"> All Events </a>
+					<?php echo close_menu(); ?>
+
+					
+					<!-- ADD NEW EVENT -->
+					<?php echo open_menu($page_title, 'Add Event'); ?>
+						<a href="<?php echo site_url('admin/events/add'); ?>"> Add Event </a>
+					<?php echo close_menu(); ?>
+
+				</ul>
+			<?php endif; ?>
 		<?php echo close_menu(); ?>
 
 

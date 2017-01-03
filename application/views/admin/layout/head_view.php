@@ -7,7 +7,17 @@
 	<meta name="author" content="Abel Tariku">
 	<meta name="viewport" content="width=device-width, intital-scale=1.0">
 	<title>
-		<?php echo !isset($page_title) ? "Admin"  : "Admin" . " - " . ucwords($page_title); ?>
+		<?php
+			if($page_title != NULL){
+				echo "Admin" . " - " . ucwords($page_title);
+			}elseif($page_section != NULL){
+				echo "Admin" . " - " . ucwords($page_section);
+			}else{
+				echo "Admin" . " - " . ucwords($site_name);
+			}
+
+		?>
+		<?php //echo !isset($page_title) ? "Admin"  : "Admin" . " - " . ucwords($page_title); ?>
 	</title>
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/font-awesome.min.css'); ?>">
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/bootstrap.min.css'); ?>">

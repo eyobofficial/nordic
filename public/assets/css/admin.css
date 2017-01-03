@@ -34,6 +34,9 @@ input[type=file] {
 
 
 /*----------- Common Styles -------------------------*/
+.borderMe {
+	border: 2px solid red !important;
+}
 
 .bold {
 	font-weight: bold;
@@ -94,14 +97,27 @@ input[type=file] {
 
 
 /*------ SideNavigation ------------*/
-#leftCol nav ul > li {
-	font-weight: normal;
-	padding: 0.8em 1.2em;
-}
-
 
 #leftCol nav ul > li > a {
 	text-decoration: none;
+}
+
+
+#leftCol nav ul#primaryMenu > li > a {
+	display: block;
+	width: 100%;
+	padding: 0.8em 1.2em;
+	font-weight: normal;
+}
+
+
+
+#leftCol ul.submenu {
+	margin-bottom: 0.4em;
+}
+
+#leftCol ul.submenu > li {
+	padding: 0.3em 0 0.3em 3.8em;
 }
 
 
@@ -123,32 +139,6 @@ input[type=file] {
 .topIcons span.badge {
 	font-size: 8px;
 	background-color: green;
-}
-
-
-
-
-
-/*--------------- sideNav ------------------------*/
-nav a {
-	display: block;
-	margin-bottom: 0 !important;
-}
-
-nav .submenu {
-	background-color: #555;
-	margin-top: -5px !important;
-}
-
-nav .submenu li {
-	margin-left: 4em;
-	font-weight: bold !important;
-	list-style-type: square;
-}
-
-nav .submenu li:hover a {
-	color: #FF9900 !important;
-	background: #555;
 }
 
 

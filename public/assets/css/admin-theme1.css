@@ -33,7 +33,7 @@
 }
 
 
-#leftCol nav ul > li.active {
+#leftCol ul#primaryMenu > li.active {
 	/* background-color: #1D2F3E; */
 	background-color: #6e6e6e;
 	border-top: 0.1px solid #333;
@@ -41,9 +41,31 @@
 	border-left: 4px solid #FF9900;
 }
 
-#leftCol nav ul > li.active a {
+#leftCol ul#primaryMenu > li.active > a {
 	/* color: #152737; */
-	color: #efefef;
+	color: #efefef;	
+}
+
+
+#leftCol ul.submenu {
+	border-top: 1.8px dotted grey;
+}
+
+#leftCol ul.submenu > li:hover {
+	background: grey;
+}
+
+#leftCol ul.submenu > li:hover > a{
+	color: #fff;
+}
+
+
+#leftCol ul.submenu > li.active {
+	background: #FF9900;
+}
+
+#leftCol ul.submenu > li.active > a{
+	color: #333;
 }
 
 
