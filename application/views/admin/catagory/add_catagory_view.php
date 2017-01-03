@@ -5,25 +5,52 @@
 		<h2 class="h4 text-left actionTitle"><span class="fa fa-book"></span>&nbsp; Add Catagory</h1>
 	</header>
 
+	
+	<?php if(!empty(validation_errors())): ?>
+	<div class="panel panel-danger">
+		<div class="panel-body">
+			<?php echo validation_errors(); ?>
+		</div>
+	</div>
+    <?php endif; ?>
 
 
 	<!-- BODY (FORM) -->
-	<form action="admin/admin/catagory/add" method="POST">
+	<?php echo form_open('admin/catagories/add', array('name' => 'add_cat', 'id' => 'addCat')); ?>
 		<div class="form-group-container add-admin-container">
 		<fieldset>
 			<legend>New Event Catagory</legend>
 
 			<!-- CATAGORY TITLE -->
 			<div class="form-group">
-				<label for="catagoryNAME">Title: </label>
-				<input type="text" name="catagory_title" id="catagoryName" class="form-control" value="" placeholder="Example: Sport, Concert, Theatre">
+				<label for="catName">Title: </label>
+				<?php
+					$input_attr = array(
+								'name'        => 'cat_title',
+								'id'          => 'catName',
+								'class'       => 'form-control',
+								'placeholder' => 'Example: Sport, Concert, Theatre',
+								'value'       => set_value('cat_title')
+						);
+
+					echo form_input($input_attr);
+				?>
 			</div><!-- .form-group -->
 
 
 			<!-- CATAGORY DESCRIPTION -->
 			<div class="form-group">
 				<label for="catDesc">Description: </label>
-				<textarea name="cat_desc" id="catDesc" cols="30" rows="10" class="form-control"></textarea>
+				<?php
+					$textarea_attr = array(
+								'name'        => 'cat_desc',
+								'id'          => 'catDesc',
+								'class'       => 'form-control',
+								'value'       => set_value('cat_desc')
+						);
+
+					echo form_textarea($textarea_attr);
+				?>
 			</div><!-- .form-group -->
 
 
@@ -33,18 +60,28 @@
 				<input type="file" name="default_pic" id="defaultPic">
 			</div><!-- /.form-group -->
 
-		</fieldset>
+		
 		</div><!-- .form-group-container -->
 
 
 
 		<!-- SUBMIT INPUT BUTTON -->
 		<div class="form-group">
-			<input type="submit" name="submit" value="submit" class="btn btn-success btn-block">
+			<?php
+				$submit_attr = array(
+							'name'  => 'submit',
+							'id'    => 'submitForm',
+							'class' => 'btn btn-success btn-block',
+							'value' => 'Submit'
+					);
+
+				echo form_submit($submit_attr);
+			?>
 		</div><!-- .form-group -->
 
 
-	</form>
+		</fieldset>
+	<?php echo form_close(); ?>
 
 
 

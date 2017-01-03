@@ -1,6 +1,6 @@
 <?php
 
-class Catagory_model extends MY_Model {
+class Cat_model extends MY_Model {
 
 	/**
 	 * Table data
