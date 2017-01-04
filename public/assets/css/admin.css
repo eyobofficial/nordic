@@ -156,10 +156,26 @@ table.listTable tbody tr {
 
 
 
-
 /*------------- adminFooter --------------------*/
 #adminFooter {
 	padding: 0.8em 1em 0.2em 0;
 	font-size: 11px;
 	font-weight: bold;
+}
+
+
+
+/************************************ PAGES ************************************/
+
+/*---------- Add New Event Page --------------*/
+.eventInstructions{
+	border-left: 2px dotted #ccc;
+}
+
+.eventInstructions ol {
+	list-style-position: outside;
+}
+
+.eventInstructions ol li {
+	margin-bottom: 1em;
 }
