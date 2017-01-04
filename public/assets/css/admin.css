@@ -172,10 +172,6 @@ table.listTable tbody tr {
 	border-left: 2px dotted #ccc;
 }
 
-.eventInstructions ol {
-	list-style-position: outside;
-}
-
-.eventInstructions ol li {
+.eventInstructions dd {
 	margin-bottom: 1em;
 }

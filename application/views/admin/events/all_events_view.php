@@ -126,15 +126,19 @@
 
 
 					<div class="eventInstructions col-sm-6">
-						<legend>To create a new event: </legend>
+						<legend>To create new event: </legend>
 
-						<ol class="list-unstyled">
-							<li><strong>Step 1:</strong>&nbsp; Create a new event below by entering the Event Title and selecting the Event Catagory.</li>
+						<dl>
+							<dt>Step 1:</dt>
+							<dd>Create a new event below by entering the Event Title and selecting the Event Catagory.</dd>
 
-							<li><strong>Step 2:</strong>&nbsp; Select the new created event and edit the event details such as <i>Event Venue, Event Date, Photos etc</i></li>
+							<dt>Step 2:</dt>
+							<dd>Select the new created event and edit the event details such as Event Venue, Event Date, Photos etc</dd>
 
-							<li><strong>Step 3:</strong>&nbsp; Publish the Event</li>
-						</ol>
+							<dt>Step 3:</dt>
+							<dd>Publish the Event</dd>
+						</dl>
+
 					</div><!-- /.eventInstructions -->
 				</div><!-- /.row -->
 				
