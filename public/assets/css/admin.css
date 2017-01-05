@@ -77,6 +77,44 @@ table.listTable tbody tr {
 }
 
 
+.table-invisible td {
+	border: none !important;
+}
+
+
+.table-dl td:first-child {
+	font-weight: bold;
+}
+
+
+/******** Panel Sizes ********************************/
+
+.panel-xlg {
+	height: 480px;
+	overflow: auto;
+}
+
+.panel-lg {
+	height: 360px;
+	overflow: auto;
+}
+
+.panel-md {
+	height: 280px;
+	overflow: auto;
+}
+
+.panel-sm {
+	height: 200px;
+	overflow: auto;
+}
+
+.panel-xs {
+	height: 140px;
+	overflow: auto;
+}
+
+
 
 
 /*--------------- LEFT COL ----------------------*/

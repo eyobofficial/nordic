@@ -34,6 +34,17 @@ class Events extends Admin_Controller {
 	}
 
 
+	/**
+	 * An Event
+	 */
+	public function event(){
+		$this->data['main_view'] .= 'event_view';
+		$this->data['page_title'] = 'Event';
+
+		$this->render('admin');
+	}
+
+
 
 	/**
 	 * Add new event

@@ -1,9 +1,9 @@
 <?php
 
 
-class Cat_name_model extends MY_Model {
+class Cat_langs_model extends MY_Model {
 	
-	protected $_table = 'cat_names';
+	protected $_table = 'cat_langs';
 
 
 	/**

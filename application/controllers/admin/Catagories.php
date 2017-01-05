@@ -8,7 +8,7 @@ class Catagories extends Admin_Controller {
 	 */
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(array('Cat_model', 'Cat_name_model'));
+		$this->load->model(array('Cat_model', 'Cat_langs_model'));
 
 		$this->data['page_section'] = 'catagories';
 		$this->data['main_view'] = 'catagory/';
@@ -77,11 +77,10 @@ class Catagories extends Admin_Controller {
 				$cat_desc  = $this->input->post(trim('cat_desc'));
 
 				
-				// Insert into Cat_names table of database
-				$cat_name_id = $this->Cat_name_model->save(array('cat_name' => $cat_title));
-
-				// Insert into Catagories table of database
-				$this->Cat_model->save(array('name_id' => $cat_name_id, 'description' => $cat_desc));
+				// Insert 'title' & 'summary' into Cat_langs table of database
+				$cat_name_id = $this->Cat_model->save(array());
+				$this->Cat_langs_model->save(array('title' => $cat_title, 'cat_id' => $cat_name_id, 'summary' => $cat_desc));
+						
 
 				// Redirect to All Catagories page
 				$this->all();
