@@ -12,6 +12,7 @@ class MY_Controller extends CI_Controller {
 		parent::__construct();
 
 		$this->load->library(array('session'));
+		$this->load->model(array('Test_model'));
 
 		$this->data['site_name']    = $this->config->item('site_name');
 		$this->data['tagline']      = $this->config->item('tagline');

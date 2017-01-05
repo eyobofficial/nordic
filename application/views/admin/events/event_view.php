@@ -6,12 +6,10 @@
 	</header>
 	
 	<article class="subsection row">
-	<?php echo form_open('admin/events/event', array('name' => 'update_event', 'id' => 'updateEvent')); ?>
-		
 
 		<!-- EVENT DETAILS -->
 		<div class="col-sm-6" id="eventDetails">
-			<div class="panel panel-warning">
+			<div class="panel panel-warning panel-md">
 				<div class="panel-heading">
 					<strong>Event Details</strong>
 
@@ -64,78 +62,38 @@
 		</div><!-- /.col-sm-6 -->
 		
 		
-		<!-- EVENT LOCATIONS -->
-		<div class="col-sm-6" id="eventLocation">
-			<div class="panel panel-warning">
-				<div class="panel-heading">
-					<strong>Venue &amp; Location</strong>
-				</div><!-- /.panel-heading -->
-
-				<div class="panel-body">
-					<div class="row">
-						<!-- Event Venue -->
-						<div class="col-sm-8 col-sm-offset-2">
-							<div class="form-group">
-								<label for="eventVenue">Venue</label>
-								<?php
-									$input_attr = array(
-												'name'        => 'event_venue',
-												'id'          => 'eventVenue',
-												'class'       => 'form-control',
-												'value'       => set_value('event_venue')
-										);
-
-									echo form_input($input_attr);
-								?>
-							</div><!-- /.form-group -->
-
-
-							<div class="form-group">
-								<label for="city">City</label>
-								<?php
-									$input_attr = array(
-												'name'        => 'city',
-												'id'          => 'city',
-												'class'       => 'form-control',
-												'value'       => set_value('city')
-										);
-
-									echo form_input($input_attr);
-								?>
-							</div><!-- /.form-group -->
-
-
-							<!-- Event Catagory -->
-							<div class="form-group">
-								<label for"country">Country: </label>
-								<select name="country" id="country" class="form-control">
-									<option value=""></option>
-								</select>
-							</div><!-- /.form-group -->
-						</div><!-- /.col-sm-6 -->
-					</div><!-- /.row -->
-				</div><!-- /.panel-body -->
-			</div>
-		</div><!-- /.col-sm-6 -->
-		
 
 		<!-- EVENT PHOTO -->
-		<div class="col-sm-6">
+		<div class="col-sm-6" id="eventPhoto">
 			<div class="panel panel-warning panel-md">
 				<div class="panel-heading">
 					<strong>Event Photo</strong>
-				</div><!-- /.panel-heading -->
 
+					<span class="pull-right">
+
+						<!-- Button(link) trigger modal -->
+						<a href="#" type="button" data-toggle="modal" data-target="#eventPhotoModal" title="Update Photo">
+							<span class="fa fa-gear"></span> Edit
+						</a>
+
+						<!-- modal -->
+						<?php $this->load->view('admin/events/modals/event_photo_modal'); ?>
+						
+					</span>
+				</div><!-- /.panel-heading -->
 
 				<div class="panel-body">
 					
+
+					<!-- PHOTO CONTAINERS GOES HERE -->
+
+
 				</div><!-- /.panel-body -->
 			</div>
 		</div><!-- /.col-sm-6 -->
 
 
-
-		<!-- EVENT PHOTO -->
+		<!-- LANAGUAGES TRANSLATIONS -->
 		<div class="col-sm-6">
 			<div class="panel panel-warning panel-md">
 				<div class="panel-heading">
@@ -151,31 +109,30 @@
 
 
 		<!-- EVENT DESCRIPTION -->
-		<div class="col-sm-12">
+		<div class="col-sm-12" id="eventDesc">
 			<div class="panel panel-warning">
 				<div class="panel-heading">
 					<strong>Description</strong>
+
+					<span class="pull-right">
+
+						<!-- Button(link) trigger modal -->
+						<a href="#" type="button" data-toggle="modal" data-target="#descModal" title="Edit Description">
+							<span class="fa fa-gear"></span> Edit
+						</a>
+
+						<!-- modal -->
+						<?php $this->load->view('admin/events/modals/edit_desc_modal'); ?>
+						
+					</span>
 				</div><!-- /.panel-heading -->
-					
 
 				<div class="panel-body">
-					<div class="form-group">
-					<?php
-						$textarea_attr = array(
-									'name'        => 'summary',
-									'id'          => 'summary',
-									'class'       => 'form-control',
-									'value'       => set_value('summary')
-							);
-
-						echo form_textarea($textarea_attr);
-					?>
-					</div><!-- /.form-group -->
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, recusandae voluptates nostrum similique repellendus. Debitis quos placeat distinctio earum, facilis velit possimus consequatur impedit! Suscipit, quas recusandae ratione quam. Ipsum.</p>
 				</div><!-- /.panel-body -->
 			</div>
 		</div><!-- /.col-sm-6 -->
-	
-	<?php echo form_close(); ?>
+
 	</article><!-- /.subsection -->
 	
 
@@ -196,52 +153,48 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-sm-6">
+													
+						<!-- Event Title -->
+						<div class="form-group">
+							<label for"eventTitle">Event Title: </label>
+							<?php
+								$input_attr = array(
+											'name'        => 'event_title',
+											'id'          => 'eventName',
+											'class'       => 'form-control',
+											'value'       => set_value('event_title')
+									);
 
-						<?php echo form_open('admin/events/add', array('name' => 'add_event', 'id' => 'addEvent')); ?>
+								echo form_input($input_attr);
+							?>
+						</div><!-- /.form-group -->
+
+
+						<!-- Event Catagory -->
+						<div class="form-group">
+							<label for"eventCatagory">Event Catagory: </label>
+							<select name="event_catagory" id="eventCatagory" class="form-control">
+								<option value=""></option>
+							</select>
+						</div><!-- /.form-group -->
+
+
+
+						<!-- SUBMIT INPUT BUTTON -->
+						<div class="form-group">
+							<?php
+								$submit_attr = array(
+											'name'  => 'submit',
+											'id'    => 'submitForm',
+											'class' => 'btn btn-danger btn-block',
+											'value' => 'Create'
+									);
+
+								echo form_submit($submit_attr);
+							?>
+						</div><!-- .form-group -->
 							
-							
-							<!-- Event Title -->
-							<div class="form-group">
-								<label for"eventTitle">Event Title: </label>
-								<?php
-									$input_attr = array(
-												'name'        => 'event_title',
-												'id'          => 'eventName',
-												'class'       => 'form-control',
-												'value'       => set_value('event_title')
-										);
-
-									echo form_input($input_attr);
-								?>
-							</div><!-- /.form-group -->
-
-
-							<!-- Event Catagory -->
-							<div class="form-group">
-								<label for"eventCatagory">Event Catagory: </label>
-								<select name="event_catagory" id="eventCatagory" class="form-control">
-									<option value=""></option>
-								</select>
-							</div><!-- /.form-group -->
-
-
-
-							<!-- SUBMIT INPUT BUTTON -->
-							<div class="form-group">
-								<?php
-									$submit_attr = array(
-												'name'  => 'submit',
-												'id'    => 'submitForm',
-												'class' => 'btn btn-danger btn-block',
-												'value' => 'Create'
-										);
-
-									echo form_submit($submit_attr);
-								?>
-							</div><!-- .form-group -->
-							
-						<?php echo form_close(); ?>
-					</div><!-- /.col-sm-8 -->
+					</div><!-- /.col-sm-6 -->
 
 
 

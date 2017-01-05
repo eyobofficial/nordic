@@ -1,5 +1,5 @@
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="editDetailsModal">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
 
       <div class="modal-header">
@@ -7,9 +7,9 @@
         <h4 class="modal-title"><?php echo $modal_title; ?></h4>
       </div><!-- /.modal-header -->
 
-
-      <div class="modal-body">
-        <?php echo form_open('admin/events/event_details', array('name' => 'event_details_form', 'id' => 'eventDetailsForm')); ?>
+      <div class="col-sm-10 col-sm-offset-1">
+         <div class="modal-body">
+        <?php echo form_open('admin/events/details', array('name' => 'event_details_form', 'id' => 'eventDetailsForm')); ?>
             
             <!-- Event Title -->
             <div class="form-group">
@@ -94,11 +94,13 @@
             </div><!-- /.form-group -->
 
       </div><!-- /.modal-body -->
+      </div><!-- /.col-sm-10 -->
+     
 
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <input type="submit" name="submit" class="btn btn-primary" id="submitModalForm" value="Save changes">
+        <input type="submit" name="submit_details" class="btn btn-primary" id="submitModalForm" value="Save changes">
       </div><!-- /.modal-footer -->
     
         <?php echo form_close(); ?>

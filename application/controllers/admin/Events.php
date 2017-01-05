@@ -39,6 +39,14 @@ class Events extends Admin_Controller {
 	 * An Event
 	 */
 	public function event(){
+
+		// Edit Event Details Form Submitted
+		if($this->input->post('submit_details')){
+			$title = $this->input->post('event_title');
+
+			$this->Test_model->save(array('title' => $title));
+		}
+
 		$this->data['main_view']  .= 'event_view';
 		$this->data['page_title']  = 'All Events';
 		$this->data['modal_view'] .= 'test_modal';
@@ -46,6 +54,7 @@ class Events extends Admin_Controller {
 		$this->data['modal_id']    = 'testModal';
 
 		$this->render('admin');
+	
 	}
 
 
@@ -64,8 +73,9 @@ class Events extends Admin_Controller {
 	/**
 	 * Edit event details
 	 */
-	public function event_details(){
-		echo "please!";
+	public function details(){
+
+		
 	}
 
 
