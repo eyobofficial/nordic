@@ -9,6 +9,7 @@ class Events extends Admin_Controller {
 		parent::__construct();
 		$this->data['page_section'] = 'events';
 		$this->data['main_view'] = 'events/';
+		$this->data['modal_view'] = 'events/modals/';
 	}
 
 
@@ -38,8 +39,11 @@ class Events extends Admin_Controller {
 	 * An Event
 	 */
 	public function event(){
-		$this->data['main_view'] .= 'event_view';
-		$this->data['page_title'] = 'Event';
+		$this->data['main_view']  .= 'event_view';
+		$this->data['page_title']  = 'All Events';
+		$this->data['modal_view'] .= 'test_modal';
+		$this->data['modal_title'] = 'Some Cool Events';
+		$this->data['modal_id']    = 'testModal';
 
 		$this->render('admin');
 	}
@@ -53,6 +57,15 @@ class Events extends Admin_Controller {
 		$this->data['main_view'] .= 'add_event_view';
 		$this->data['page_title'] = 'Add Event';
 		$this->render('admin');
+	}
+
+
+
+	/**
+	 * Edit event details
+	 */
+	public function event_details(){
+		echo "please!";
 	}
 
 

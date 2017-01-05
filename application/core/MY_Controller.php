@@ -50,6 +50,18 @@ class MY_Controller extends CI_Controller {
 	}
 
 
+
+
+	/**
+	 * Render Modals
+	 */
+	public function modal($modal_id){
+		$this->data['modal_id'] = $modal_id;
+		$template = 'admin/templates/modal_template';
+		$this->load->view($template, $this->data);
+	}
+
+
 	/**
 	 * Show pages in provided stack
 	 */

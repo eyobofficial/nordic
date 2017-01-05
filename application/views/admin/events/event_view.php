@@ -1,5 +1,5 @@
 <section class="col-sm-12">
-	
+
 	<!-- TITLE HEADER -->
 	<header>
 		<h2 class="h4 text-left actionTitle"><span class="fa fa-book"></span>&nbsp; Some Cool Event</h1>
@@ -16,9 +16,15 @@
 					<strong>Event Details</strong>
 
 					<span class="pull-right">
-						<a href="#" title="Edit Event">
+
+						<!-- Button(link) trigger modal -->
+						<a href="#" type="button" data-toggle="modal" data-target="#editDetailsModal" title="Edit Event">
 							<span class="fa fa-gear"></span> Edit
-						</a>	
+						</a>
+
+						<!-- modal -->
+						<?php $this->load->view('admin/events/modals/edit_details_modal'); ?>
+						
 					</span>
 				</div><!-- /.panel-heading -->
 

@@ -18,7 +18,7 @@
 					<span class="pull-right">
 						<a href="#" title="Edit Event">
 							<span class="fa fa-gear"></span> Edit
-						</a>	
+						</a>
 					</span>
 				</div><!-- /.panel-heading -->
 
