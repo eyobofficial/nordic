@@ -132,13 +132,36 @@
 		</li>
 
 
-		<!-- MANAGE SETTINGS -->
-		<li  <?php if(isset($page_section) && strtolower($page_section) == 'settings'): ?> class="active" <?php endif; ?>>
-			<a href="#">
-				<span class="fa fa-sliders push-left"></span> &nbsp; &nbsp;
-				settings
-				<span class="fa fa-chevron-down pull-right"></span>
+		<!-- SETTINGS -->
+		<?php echo open_menu($page_section, 'settings'); ?>
+			<a href="<?php echo site_url('admin/languages'); ?>">
+				<span class="fa fa-sliders push-left"></span> 
+				&nbsp; &nbsp; Settings 
+				<?php if(is_active($page_section, 'settings')): ?>
+					<span class="fa fa-chevron-down pull-right">
+				<?php else: ?>
+					<span class="fa fa-chevron-right pull-right">
+				<?php endif; ?>
 			</a>
-		</li>
+
+			<!-- SETTINGS SUBMENU (secondary menus) -->
+			<?php if(is_active($page_section, 'settings')): ?>
+				<ul class="submenu list-unstyled">
+
+					<!-- WEBSITE SETTINGS -->
+					<?php echo open_menu($page_title, 'website'); ?>
+						<a href="<?php echo site_url('admin/website'); ?>"> General Settings </a>
+					<?php echo close_menu(); ?>
+
+					
+					<!-- LANGUAGES SETTINGS -->
+					<?php echo open_menu($page_title, 'languages'); ?>
+						<a href="<?php echo site_url('admin/languages'); ?>"> Languages </a>
+					<?php echo close_menu(); ?>
+
+				</ul>
+			<?php endif; ?>
+		<?php echo close_menu(); ?>
+
 	</ul>
 </nav>

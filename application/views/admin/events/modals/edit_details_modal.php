@@ -10,6 +10,7 @@
       <div class="col-sm-10 col-sm-offset-1">
          <div class="modal-body">
         <?php echo form_open('admin/events/details', array('name' => 'event_details_form', 'id' => 'eventDetailsForm')); ?>
+        
             
             <!-- Event Title -->
             <div class="form-group">
