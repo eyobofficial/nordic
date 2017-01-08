@@ -116,6 +116,20 @@ table.listTable tbody tr {
 
 
 
+/*------------ Table Column Sizes -------------------*/
+.td-xs {
+	width: 16%;
+}
+
+.td-sm {
+	width: 30%;
+}
+
+.td-md {
+	width: 60%;
+}
+
+
 
 /*--------------- LEFT COL ----------------------*/
 

@@ -32,21 +32,32 @@ class Catagories extends Admin_Controller {
 
 
 	/**
-	 * All Catagories
+	 * Display all Catagories
 	 */
 	public function all(){
 		$this->data['main_view'] .= 'all_catagories_view';
 		$this->data['page_title'] = 'All Catagories';
+
+
+		$this->data['catagories'] = $this->Cat_model->get_all();
 
 		$this->render('admin');
 	}
 
 
 	/**
-	 * A Catagories
+	 * Display a Catagory
 	 */
 	public function id($cat_id){
+		$this->data['main_view'] .= 'catagory_view';
+		$this->data['page_title'] = 'All Catagories';
 
+
+		$this->data['catagory'] = $this->Cat_model->get($cat_id);
+
+		//var_dump($this->data['catagory']);
+
+		$this->render('admin');
 	}
 
 
@@ -76,10 +87,9 @@ class Catagories extends Admin_Controller {
 				$cat_title = $this->input->post(trim('cat_title'));
 				$cat_desc  = $this->input->post(trim('cat_desc'));
 
-				
-				// Insert 'title' & 'summary' into Cat_langs table of database
-				$cat_name_id = $this->Cat_model->save(array());
-				$this->Cat_langs_model->save(array('title' => $cat_title, 'cat_id' => $cat_name_id, 'summary' => $cat_desc));
+
+				// Insert 'title' & 'summary' into 'Catagories' table of database
+				$this->Cat_model->save(array('default_title' => $cat_title, 'default_summary' => $cat_desc));
 						
 
 				// Redirect to All Catagories page

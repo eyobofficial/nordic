@@ -19,7 +19,7 @@ class Events extends Admin_Controller {
 			// Get all catagories
 			$this->all();
 		}else{
-			// Get a catagory by id
+			$this->id($event_id);
 		}		
 	}
 
@@ -38,7 +38,7 @@ class Events extends Admin_Controller {
 	/**
 	 * An Event
 	 */
-	public function event(){
+	public function id($event_id){
 
 		// Edit Event Details Form Submitted
 		if($this->input->post('submit_details')){

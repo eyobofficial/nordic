@@ -28,26 +28,32 @@
 			
 			<div class="table-responsive">
 				<table class="table table-striped table-hover listTable">
+					<?php foreach($langs as $lang): ?>
+
+					<?php
+						$data = array(
+									'lang'     => $lang,
+									'modal_id' => 'editModal' . $lang->id
+							);
+					?>
+
+					<!-- modal -->
+					<?php $this->load->view('admin/languages/modals/edit_lang_modal', $data); ?>
+
 					<tr>
-						<td>Svenska</td>
-						<td class="bold">SV</td>
+						<td><?php echo $lang->name; ?></td>
+						<td class="bold"><?php echo strtoupper($lang->abbr); ?></td>
 						<td class="text-center"> - </td>
 						<td class="text-right">
-							<span class="fa fa-edit"> Edit</span>
+
+							<!-- Button(link) trigger modal -->
+							<a href="#" type="button" data-toggle="modal" data-target="#<?php echo $data['modal_id']; ?>" title="Edit Language">
+								<span class="fa fa-edit"></span> Edit
+							</a>
 						</td>
-
 					</tr>
-					
+					<?php endforeach; ?>
 
-					<tr>
-						<td>Danish</td>
-						<td class="bold">DN</td>
-						<td class="text-center"> - </td>
-						<td class="text-right">
-							<span class="fa fa-edit"> Edit</span>
-						</td>
-
-					</tr>
 				</table>
 			</div><!-- /.table-resposive -->
 		</div><!-- /.panel -->
