@@ -49,15 +49,33 @@ class Catagories extends Admin_Controller {
 	 * Display a Catagory
 	 */
 	public function id($cat_id){
-		$this->data['main_view'] .= 'catagory_view';
 		$this->data['page_title'] = 'All Catagories';
 
 
-		$this->data['catagory'] = $this->Cat_model->get($cat_id);
+		if($this->Cat_model->get($cat_id)){
+			$this->data['catagory']   = $this->Cat_model->get($cat_id);
+			$this->data['main_view'] .= 'catagory_view';
+			$this->render('admin');
+		}else{
+			$this->all();
+		}
+		
+	}
 
-		//var_dump($this->data['catagory']);
 
-		$this->render('admin');
+
+
+	/**
+	 * Edit a catagory
+	 */
+	public function edit(){
+		if($this->input->post('submit_details')){
+			echo $this->input->post('catagory_id');
+		}elseif($this->input->post('submit_photo')){
+			echo "photo";
+		}else{
+			$this->all();
+		}
 	}
 
 

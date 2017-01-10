@@ -21,7 +21,7 @@
 						</a>
 
 						<!-- modal -->
-						<?php $this->load->view('admin/events/modals/edit_details_modal'); ?>
+						<?php $this->load->view('admin/catagory/modals/edit_details_modal'); ?>
 						
 					</span>
 				</div><!-- /.panel-heading -->
@@ -64,12 +64,12 @@
 					<span class="pull-right">
 
 						<!-- Button(link) trigger modal -->
-						<a href="#" type="button" data-toggle="modal" data-target="#eventPhotoModal" title="Update Photo">
+						<a href="#" type="button" data-toggle="modal" data-target="#catPhotoModal" title="Update Photo">
 							<span class="fa fa-gear"></span> Edit
 						</a>
 
 						<!-- modal -->
-						<?php $this->load->view('admin/events/modals/event_photo_modal'); ?>
+						<?php $this->load->view('admin/catagory/modals/cat_photo_modal'); ?>
 						
 					</span>
 				</div><!-- /.panel-heading -->
