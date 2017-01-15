@@ -70,13 +70,48 @@ class Catagories extends Admin_Controller {
 	 */
 	public function edit(){
 		if($this->input->post('submit_details')){
-			echo $this->input->post('catagory_id');
+
+			// Catagory id
+			$cat_id = $this->input->post('catagory_id');
+
+			// Load form validation libarary
+			$this->load->library(array('form_validation'));
+
+			// Change error message delimeter
+			$this->form_validation->set_error_delimiters('<p class="text-danger bold"><span class="fa fa-exclamation-circle"></span>&nbsp; ', '</p>');
+
+			// Set validation rule
+			$this->form_validation->set_rules('cat_title', '&apos;Catagory Title&apos;', 'trim|required');
+
+
+			/**
+			 * Check validations
+			 */
+			if($this->form_validation->run() == TRUE){
+				// Validation Success
+				$cat_title = $this->input->post('cat_title');
+				$cat_desc  = nl2br($this->input->post('cat_desc'));
+
+				$this->Cat_model->save(
+					array('default_title' => $cat_title, 'default_summary' => $cat_desc),
+					array('id' => $cat_id)
+					);
+
+				$this->id($cat_id);
+
+			}else{
+				// Validation failed - Redirect to page
+				$this->id($this->input->post($cat_id));
+			}
+
 		}elseif($this->input->post('submit_photo')){
 			echo "photo";
 		}else{
 			$this->all();
 		}
-	}
+
+	} // End of edit() method
+
 
 
 	/**
@@ -103,7 +138,7 @@ class Catagories extends Admin_Controller {
 
 				// Retrieve from POST global variables
 				$cat_title = $this->input->post(trim('cat_title'));
-				$cat_desc  = $this->input->post(trim('cat_desc'));
+				$cat_desc  = nl2br($this->input->post(trim('cat_desc')));
 
 
 				// Insert 'title' & 'summary' into 'Catagories' table of database

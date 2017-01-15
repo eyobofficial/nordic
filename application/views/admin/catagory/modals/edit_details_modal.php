@@ -7,9 +7,10 @@
         <h4 class="modal-title"><?php echo $catagory->default_title; ?></h4>
       </div><!-- /.modal-header -->
 
+
       <div class="col-sm-10 col-sm-offset-1">
          <div class="modal-body">
-        <?php echo form_open('admin/catagories/edit', array('name' => 'catagory_details_form', 'id' => 'catagoryDetailsForm')); ?>
+            <?php echo form_open('admin/catagories/edit', array('name' => 'catagory_details_form', 'id' => 'catagoryDetailsForm')); ?>
 
             <!-- HIDDEN VALUES -->
             <?php echo form_hidden(array('catagory_id' => $catagory->id)); ?>

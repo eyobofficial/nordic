@@ -4,6 +4,17 @@
 	<header>
 		<h2 class="h4 text-left actionTitle"><span class="fa fa-book"></span>&nbsp; <?php echo $catagory->default_title; ?></h1>
 	</header>
+
+	
+	<!-- VALIDATION ERRORS -->
+	<?php if(!empty(validation_errors())): ?>
+	<div class="panel panel-danger">
+		<div class="panel-body">
+			<?php echo validation_errors(); ?>
+		</div>
+	</div>
+    <?php endif; ?>
+
 	
 	<article class="subsection row">
 
@@ -42,7 +53,7 @@
 							<tr>
 								<td class="td-xs">Description: </td>
 								<td>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, recusandae voluptates nostrum similique repellendus. Debitis quos placeat distinctio earum, facilis velit possimus consequatur impedit! Suscipit, quas recusandae ratione quam. Ipsum.</p>
+									<p><?php echo $catagory->default_summary; ?></p>
 								</td>
 							</tr>
 
