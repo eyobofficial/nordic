@@ -1,8 +1,11 @@
 <section class="col-sm-12">
 
 	<!-- TITLE HEADER -->
-	<header>
-		<h2 class="h4 text-left actionTitle"><span class="fa fa-book"></span>&nbsp; <?php echo $catagory->default_title; ?></h1>
+	<header class="headerBox clearfix">
+
+		<h2 class="h4 text-left"><span class="fa fa-book"></span>&nbsp; <?php echo $catagory->default_title; ?></h2>
+		
+		<a title="Delete <?php echo $catagory->default_title; ?> Catagory" href="<?php echo site_url('admin/catagories/delete/' . $catagory->id); ?>" class="delete-catagory btn btn-danger pull-right"><span class="fa fa-trash"></span> Delete</a>
 	</header>
 
 	
@@ -121,13 +124,24 @@
 					<!-- LANGAUGES TRANSLATIONS -->
 					<?php foreach($translations as $translation): ?>
 						<?php $lang = $this->Lang_model->get($translation->lang_id); ?>
+
+						<?php
+							$data = array(
+										'translation'   => $translation,
+										'modal_id'      => 'editTransModal' . $translation->id
+								);
+						?>
+
+						<!-- modal -->
+						<?php $this->load->view('admin/catagory/modals/edit_translation_modal', $data); ?>
+
 						<tr>
-							<td><?php echo $lang->name; ?></td>
-							<td><?php echo $lang->abbr; ?></td>
+							<td><?php echo ucwords($lang->name); ?></td>
+							<td class="text-center"><?php echo strtoupper($lang->abbr); ?></td>
 							<td class="text-center"><i><?php $translation->title; ?></i></td>
-							<td class="text-center">
+							<td class="text-right">
 							<!-- Button(link) trigger modal -->
-							<a href="#" type="button" data-toggle="modal" data-target="#editLangModal" title="Edit Translations">
+							<a href="#" type="button" data-toggle="modal" data-target="#<?php echo $data['modal_id']; ?>" title="Edit Translations">
 								<span class="fa fa-gear"></span> Edit
 							</a>
 						</td>

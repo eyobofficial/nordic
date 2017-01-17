@@ -172,7 +172,7 @@ class Catagories extends Admin_Controller {
 	/**
 	 * Add new translations
 	 */
-	public function add_lang(){
+	public function translation(){
 		if($this->input->post('submit_lang')){
 
 			// Get catagory id
@@ -214,6 +214,22 @@ class Catagories extends Admin_Controller {
 		}
 
 	}/***** End add_lang() method ********/
+
+
+
+	/**
+	 * Delete catagory
+	 */
+	public function delete($cat_id = NULL){
+		if($cat_id == NULL){
+			$this->all();
+
+		}else{
+			$this->Cat_langs_model->delete(array('cat_id' => $cat_id));
+			$this->Cat_model->delete(array('id' => $cat_id));			
+			$this->all();
+		}
+	}
 
 
 

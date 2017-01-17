@@ -10,7 +10,7 @@
 
       <div class="col-sm-10 col-sm-offset-1">
          <div class="modal-body">
-            <?php echo form_open('admin/catagories/translation', array('name' => 'add_lang_form', 'id' => 'addTranslationForm')); ?>
+            <?php echo form_open('admin/catagories/translation', array('name' => 'add_lang_form', 'id' => $modal_id)); ?>
 
             <!-- HIDDEN VALUES -->
             <?php echo form_hidden(array('cat_id' => $catagory->id)); ?>
