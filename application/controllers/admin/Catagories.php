@@ -1,11 +1,32 @@
 <?php
 
 
+/**
+ * Catagories Controller: Handles Admin Catagory features
+ *
+ * LIST OF METHODS
+ * ------------------
+ * 1. index()	  : Handles the index view of the catagory 
+ *
+ * 2. all()		  : Displays all Catagories 
+ *
+ * 3. add()		  : Add New Catagories
+ *
+ * 4. edit()      : Edit Existing Catagory details (but not the translations)
+ *
+ * 5. delete()	  : Delete existing Catagory
+ *
+ * 6. Translation : Handles translations for the a Catagory (i.e. Add, Edit and Delete translations)
+ *
+ */
+
+
+
+/*-------------------------------------------------- CATAGORY CLASS ------------------------------------------------ */
 class Catagories extends Admin_Controller {
 
-	/**
-	 * Constructor
-	 */
+
+	/*-------------------------- CONSTRUCTOR METHOD -------------------------------------*/
 	public function __construct(){
 		parent::__construct();
 		$this->load->model(array('Cat_model', 'Cat_langs_model', 'Lang_model'));
@@ -15,9 +36,13 @@ class Catagories extends Admin_Controller {
 	}
 
 
-	/**
-	 * Index Page
-	 */
+
+
+
+
+
+	/*-------------------------- INDEX METHOD -------------------------------------*/
+
 	public function index($cat_id = NULL){
 		if($cat_id === NULL){
 
@@ -31,6 +56,9 @@ class Catagories extends Admin_Controller {
 	}
 
 
+
+
+	/*-------------------------- ALL METHOD -------------------------------------*/
 	/**
 	 * Display all Catagories
 	 */
@@ -45,6 +73,9 @@ class Catagories extends Admin_Controller {
 	}
 
 
+
+
+	/*-------------------------- ID METHOD -------------------------------------*/
 	/**
 	 * Display a Catagory
 	 */
@@ -66,56 +97,7 @@ class Catagories extends Admin_Controller {
 
 
 
-
-	/**
-	 * Edit a catagory
-	 */
-	public function edit(){
-		if($this->input->post('submit_details')){
-
-			// Catagory id
-			$cat_id = $this->input->post('catagory_id');
-
-			// Load form validation libarary
-			$this->load->library(array('form_validation'));
-
-			// Change error message delimeter
-			$this->form_validation->set_error_delimiters('<p class="text-danger bold"><span class="fa fa-exclamation-circle"></span>&nbsp; ', '</p>');
-
-			// Set validation rule
-			$this->form_validation->set_rules('cat_title', '&apos;Catagory Title&apos;', 'trim|required');
-
-
-			/**
-			 * Check validations
-			 */
-			if($this->form_validation->run() == TRUE){
-				// Validation Success
-				$cat_title = $this->input->post('cat_title');
-				$cat_desc  = nl2br($this->input->post('cat_desc'));
-
-				$this->Cat_model->save(
-					array('default_title' => $cat_title, 'default_summary' => $cat_desc),
-					array('id' => $cat_id)
-					);
-
-				$this->id($cat_id);
-
-			}else{
-				// Validation failed - Redirect to page
-				$this->id($this->input->post($cat_id));
-			}
-
-		}elseif($this->input->post('submit_photo')){
-			echo "photo";
-		}else{
-			$this->all();
-		}
-
-	} // End of edit() method
-
-
-
+	/*-------------------------- ADD METHOD -------------------------------------*/
 	/**
 	 * Add new catagory
 	 */
@@ -167,8 +149,75 @@ class Catagories extends Admin_Controller {
 
 
 
+	/*-------------------------- EDIT METHOD -------------------------------------*/
+	/**
+	 * Edit a catagory
+	 */
+	public function edit(){
+		if($this->input->post('submit_details')){
+
+			// Catagory id
+			$cat_id = $this->input->post('catagory_id');
+
+			// Load form validation libarary
+			$this->load->library(array('form_validation'));
+
+			// Change error message delimeter
+			$this->form_validation->set_error_delimiters('<p class="text-danger bold"><span class="fa fa-exclamation-circle"></span>&nbsp; ', '</p>');
+
+			// Set validation rule
+			$this->form_validation->set_rules('cat_title', '&apos;Catagory Title&apos;', 'trim|required');
 
 
+			/**
+			 * Check validations
+			 */
+			if($this->form_validation->run() == TRUE){
+				// Validation Success
+				$cat_title = $this->input->post('cat_title');
+				$cat_desc  = nl2br($this->input->post('cat_desc'));
+
+				$this->Cat_model->save(
+					array('default_title' => $cat_title, 'default_summary' => $cat_desc),
+					array('id' => $cat_id)
+					);
+
+				$this->id($cat_id);
+
+			}else{
+				// Validation failed - Redirect to page
+				$this->id($this->input->post($cat_id));
+			}
+
+		}elseif($this->input->post('submit_photo')){
+			echo "photo";
+		}else{
+			$this->all();
+		}
+
+	} // End of edit() method
+
+
+
+	
+	/*-------------------------- DELETE METHOD -------------------------------------*/
+	/**
+	 * Delete catagory
+	 */
+	public function delete($cat_id = NULL){
+		if($cat_id == NULL){
+			$this->all();
+
+		}else{
+			$this->Cat_langs_model->delete(array('cat_id' => $cat_id));
+			$this->Cat_model->delete(array('id' => $cat_id));			
+			$this->all();
+		}
+	} 
+
+
+
+	/*-------------------------- TRANSLATION METHOD -------------------------------------*/
 	/**
 	 * Handle Translations of a Catagory
 	 */
@@ -275,19 +324,7 @@ class Catagories extends Admin_Controller {
 
 
 
-	/**
-	 * Delete catagory
-	 */
-	public function delete($cat_id = NULL){
-		if($cat_id == NULL){
-			$this->all();
-
-		}else{
-			$this->Cat_langs_model->delete(array('cat_id' => $cat_id));
-			$this->Cat_model->delete(array('id' => $cat_id));			
-			$this->all();
-		}
-	}
+	
 
 
 

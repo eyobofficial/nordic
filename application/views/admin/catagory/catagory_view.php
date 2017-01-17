@@ -137,18 +137,23 @@
 						<?php $this->load->view('admin/catagory/modals/edit_translation_modal', $data); ?>
 
 						<tr>
-							<td><?php echo ucwords($translation->title); ?></td>
+							<td>
+								<!-- Button(link) trigger modal -->
+								<a href="#" type="button" data-toggle="modal" data-target="#<?php echo $data['modal_id']; ?>" title="<?php echo ucwords($translation->title); ?>">
+									<?php echo ucwords($translation->title); ?>
+								</a>
+							</td>
 
 							<td class="text-center">
 								<?php echo ucwords($lang->name); ?> <b>(<?php echo strtoupper($lang->abbr); ?>)</b>
 							</td> 
 
 							<td class="text-right">
-							<!-- Button(link) trigger modal -->
-							<a href="#" type="button" data-toggle="modal" data-target="#<?php echo $data['modal_id']; ?>" title="Edit Translations">
-								<span class="fa fa-gear"></span> Edit
-							</a>
-						</td>
+								<!-- Button(link) trigger modal -->
+								<a href="#" type="button" data-toggle="modal" data-target="#<?php echo $data['modal_id']; ?>" title="Edit Translations">
+									<span class="fa fa-gear"></span> Edit
+								</a>
+							</td>
 						</tr>
 					<?php endforeach; ?>
 
