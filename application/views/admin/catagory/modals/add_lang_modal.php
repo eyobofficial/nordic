@@ -72,7 +72,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <input type="submit" name="submit_lang" class="btn btn-primary" id="submitModalForm" value="Save changes">
+        <input type="submit" name="submit_add_trans" class="btn btn-primary" id="submitModalForm" value="Save changes">
       </div><!-- /.modal-footer -->
     
         <?php echo form_close(); ?>

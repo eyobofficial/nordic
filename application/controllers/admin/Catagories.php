@@ -170,10 +170,20 @@ class Catagories extends Admin_Controller {
 
 
 	/**
-	 * Add new translations
+	 * Handle Translations of a Catagory
 	 */
 	public function translation(){
-		if($this->input->post('submit_lang')){
+
+		/**
+		 * Method handles 3 cases:
+		 * 
+		 * Case 1: Add New Translatios
+		 * Case 2: Edit Existing Translations
+		 * Case 3: Delete Existing Translations
+		 */
+
+		// Case 1: Add New Translations
+		if($this->input->post('submit_add_trans')){
 
 			// Get catagory id
 			$cat_id  = $this->input->post('cat_id');
@@ -209,11 +219,59 @@ class Catagories extends Admin_Controller {
 
 			$this->id($cat_id);
 
+		// Case 2: Edit Existing Translation
+		}elseif($this->input->post('submit_edit_trans')){
+
+			// Get Catagory and Translation ID
+			$cat_id  = $this->input->post('cat_id');
+			$trans_id = $this->input->post('translation_id');
+
+			// Load form validation libarary
+			$this->load->library(array('form_validation'));
+
+			// Change error message delimeter
+			$this->form_validation->set_error_delimiters('<p class="text-danger bold"><span class="fa fa-exclamation-circle"></span>&nbsp; ', '</p>');
+
+			// Set validation rule
+			$this->form_validation->set_rules('cat_title', '&apos;Title&apos;', 'trim|required');
+
+
+			// Check the validation
+			if($this->form_validation->run() == TRUE){
+
+				// Valiation is successful
+				$title   = $this->input->post('cat_title');
+				$summary = nl2br($this->input->post('cat_desc'));
+
+				$data = array(
+						'title'   => $title,
+						'summary' => $summary
+					);
+
+				$this->Cat_langs_model->save($data, array('id' => $trans_id));
+			}
+				
+
+			$this->id($cat_id);
+
+		// Case 3: Delete Existing Translation	
+		}elseif($this->input->post('delete_trans')){
+
+			// Get Catagory and Translation id
+			$cat_id  = $this->input->post('cat_id');
+			$trans_id = $this->input->post('translation_id');
+
+
+			$this->Cat_langs_model->delete(array('id' => $trans_id));
+			$this->id($cat_id);
+
+		// Default Case	
 		}else{
 			$this->all();
 		}
 
-	}/***** End add_lang() method ********/
+
+	}/***** End translation() method ********/
 
 
 

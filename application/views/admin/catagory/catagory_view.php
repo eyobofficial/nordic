@@ -123,11 +123,12 @@
 					
 					<!-- LANGAUGES TRANSLATIONS -->
 					<?php foreach($translations as $translation): ?>
-						<?php $lang = $this->Lang_model->get($translation->lang_id); ?>
-
+	
 						<?php
+							$lang = $this->Lang_model->get($translation->lang_id);
 							$data = array(
 										'translation'   => $translation,
+										'lang'			=> $lang,
 										'modal_id'      => 'editTransModal' . $translation->id
 								);
 						?>
@@ -136,9 +137,12 @@
 						<?php $this->load->view('admin/catagory/modals/edit_translation_modal', $data); ?>
 
 						<tr>
-							<td><?php echo ucwords($lang->name); ?></td>
-							<td class="text-center"><?php echo strtoupper($lang->abbr); ?></td>
-							<td class="text-center"><i><?php $translation->title; ?></i></td>
+							<td><?php echo ucwords($translation->title); ?></td>
+
+							<td class="text-center">
+								<?php echo ucwords($lang->name); ?> <b>(<?php echo strtoupper($lang->abbr); ?>)</b>
+							</td> 
+
 							<td class="text-right">
 							<!-- Button(link) trigger modal -->
 							<a href="#" type="button" data-toggle="modal" data-target="#<?php echo $data['modal_id']; ?>" title="Edit Translations">

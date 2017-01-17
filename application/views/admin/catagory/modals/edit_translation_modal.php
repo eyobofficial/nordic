@@ -1,35 +1,24 @@
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="addLangModal">
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="<?php echo $modal_id; ?>">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><?php echo $catagory->default_title; ?></h4>
+        <h4 class="modal-title"><?php echo $catagory->default_title; ?> (<?php echo ucwords($lang->name); ?>)</h4>
       </div><!-- /.modal-header -->
 
 
       <div class="col-sm-10 col-sm-offset-1">
          <div class="modal-body">
-            <?php echo form_open('admin/catagories/translation', array('name' => 'add_lang_form', 'id' => $modal_id)); ?>
+            <?php echo form_open('admin/catagories/translation', array('name' => 'edit_trans_form', 'id' => 'editTransForm')); ?>
 
             <!-- HIDDEN VALUES -->
-            <?php echo form_hidden(array('cat_id' => $catagory->id)); ?>
+            <?php echo form_hidden(array('translation_id' => $translation->id, 'cat_id' => $catagory->id)); ?>
 
 
-            <!-- SELECT LANGUAGE -->
-            <div class="form-group">
-              <label for="lang">Select Language</label>
-              <select name="lang" id="langTitle" class="form-control">
-                <?php foreach($all_languages as $language): ?>
-                    <option value="<?php echo $language->id; ?>">
-                        <?php echo ucwords($language->name); ?>
-                    </option>
-                <?php endforeach; ?>
-              </select>
-            </div><!-- /.form-group -->
         
             
-            <!-- CATAGORY TITLE -->
+            <!-- TRANSLATION TITLE -->
             <div class="form-group">
               <label for="catTitle">Title</label>
               <?php
@@ -38,7 +27,7 @@
                       'id'          => 'catTitle',
                       'class'       => 'form-control',
                       'placeholder' => 'Example: Sport, Concert, Theatre',
-                      'value'       => $catagory->default_title
+                      'value'       => $translation->title
                   );
 
                 echo form_input($input_attr);
@@ -55,7 +44,7 @@
                       'name'        => 'cat_desc',
                       'id'          => 'catDesc',
                       'class'       => 'form-control',
-                      'value'       => $catagory->default_summary
+                      'value'       => $translation->summary
                   );
 
                 echo form_textarea($textarea_attr);
@@ -72,7 +61,8 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <input type="submit" name="submit_lang" class="btn btn-primary" id="submitModalForm" value="Save changes">
+        <input type="submit" name="delete_trans" class="btn btn-danger" id="deleteModalForm" value="Delete">
+        <input type="submit" name="submit_edit_trans" class="btn btn-primary" id="submitModalForm" value="Save changes">
       </div><!-- /.modal-footer -->
     
         <?php echo form_close(); ?>
