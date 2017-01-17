@@ -8,7 +8,7 @@ class Catagories extends Admin_Controller {
 	 */
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(array('Cat_model', 'Cat_langs_model'));
+		$this->load->model(array('Cat_model', 'Cat_langs_model', 'Lang_model'));
 
 		$this->data['page_section'] = 'catagories';
 		$this->data['main_view'] = 'catagory/';
@@ -53,8 +53,10 @@ class Catagories extends Admin_Controller {
 
 
 		if($this->Cat_model->get($cat_id)){
-			$this->data['catagory']   = $this->Cat_model->get($cat_id);
-			$this->data['main_view'] .= 'catagory_view';
+			$this->data['catagory']      = $this->Cat_model->get($cat_id);
+			$this->data['translations']  = $this->Cat_langs_model->get_where(array('cat_id' => $cat_id));
+			$this->data['all_languages'] = $this->Lang_model->get_all();
+			$this->data['main_view']    .= 'catagory_view';
 			$this->render('admin');
 		}else{
 			$this->all();
@@ -162,6 +164,56 @@ class Catagories extends Admin_Controller {
 		}
 
 	}
+
+
+
+
+
+	/**
+	 * Add new translations
+	 */
+	public function add_lang(){
+		if($this->input->post('submit_lang')){
+
+			// Get catagory id
+			$cat_id  = $this->input->post('cat_id');
+
+			// Load form validation libarary
+			$this->load->library(array('form_validation'));
+
+			// Change error message delimeter
+			$this->form_validation->set_error_delimiters('<p class="text-danger bold"><span class="fa fa-exclamation-circle"></span>&nbsp; ', '</p>');
+
+			// Set validation rule
+			$this->form_validation->set_rules('cat_title', '&apos;Title&apos;', 'trim|required');
+
+
+			// Check the validation
+			if($this->form_validation->run() == TRUE){
+
+				// Valiation is successful
+				$lang_id = $this->input->post('lang');
+				$title   = $this->input->post('cat_title');
+				$summary = nl2br($this->input->post('cat_desc'));
+
+				$data = array(
+						'cat_id'  => $cat_id,
+						'lang_id' => $lang_id,
+						'title'   => $title,
+						'summary' => $summary
+					);
+
+				$this->Cat_langs_model->save($data);
+			}
+				
+
+			$this->id($cat_id);
+
+		}else{
+			$this->all();
+		}
+
+	}/***** End add_lang() method ********/
 
 
 

@@ -59,9 +59,7 @@
 							<td class="text-right">
 
 								<!-- Button(link) trigger modal -->
-								<a href="#" type="button" data-toggle="modal" data-target="#<?php echo $data['modal_id']; ?>" title="Edit Language">
-									<span class="fa fa-edit"></span> Edit
-								</a>
+								<a href="<?php echo site_url('admin/catagories/id/' . $catagory->id); ?>" title="Edit Catagory"><span class="fa fa-edit"></span> Edit</a>
 							</td>
 							
 						</tr>
