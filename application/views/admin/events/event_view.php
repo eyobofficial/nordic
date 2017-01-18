@@ -1,8 +1,15 @@
 <section class="col-sm-12">
 
 	<!-- TITLE HEADER -->
-	<header>
-		<h2 class="h4 text-left actionTitle"><span class="fa fa-book"></span>&nbsp; Some Cool Event</h1>
+	<header class="headerBox clearfix">
+
+		<h2 class="h4 text-left"><span class="fa fa-book"></span>&nbsp; <?php echo $event->default_title; ?></h2>
+
+
+		<a title="Delete <?php echo $event->default_title; ?> Event" href="<?php echo site_url('admin/events/delete/' . $event->id); ?>" class="delete-event btn btn-danger pull-right"><span class="fa fa-trash"></span> Delete</a>
+
+		<a title="Publish <?php echo $event->default_title; ?> Event" href="<?php echo site_url('admin/events/publish/' . $event->id); ?>" class="publish-event btn btn-success pull-right"><span class="fa fa-trash"></span> Publish</a>
+		
 	</header>
 	
 	<article class="subsection row">
@@ -31,24 +38,40 @@
 						<table class="table table-invisible table-dl">
 							<tr>
 								<td>Title: </td>
-								<td>Chelsea vs Tottenham</td>
+								<td><?php echo ucwords($event->default_title); ?></td>
 							</tr>
 
 
 							<tr>
 								<td>Catagory: </td>
-								<td>Sport Events</td>
+								<td><?php echo ucwords($catagory->default_title); ?></td>
 							</tr>
 
 
 							<tr>
 								<td>Event Date: </td>
-								<td>Jan 07, 2017</td>
+								<td>
+								<?php 
+									if($event->event_date == NULL){
+										echo '-';
+									}else{
+										echo date('d M, Y', strtotime($event->event_date)) ;
+									}
+								?>
+								</td>
 							</tr>
 
 							<tr>
 								<td>Venue: </td>
-								<td>Shit-ford Bridge</td>
+								<td>
+								<?php 
+									if($event->venue == NULL OR empty($event->venue)){
+										echo '-';
+									}else{
+										echo ucwords($event->venue);
+									}
+								?>
+								</td>
 							</tr>
 
 							<tr>

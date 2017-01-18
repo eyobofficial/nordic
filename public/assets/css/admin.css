@@ -30,10 +30,13 @@ input[type=file] {
 
 
 
-
-
-
 /*----------- Common Styles -------------------------*/
+.fade {
+	color: #efefef;
+	opacity: 0.8;
+}
+
+
 .borderMe {
 	border: 2px solid red !important;
 }
@@ -102,7 +105,7 @@ table.listTable tbody tr {
 
 
 .headerBox a.btn {
-	margin: 0 !important;
+	margin: 0 0 0 1em !important;
 }
 
 
@@ -246,3 +249,8 @@ table.listTable tbody tr {
 .eventInstructions dd {
 	margin-bottom: 1em;
 }
+
+
+
+/*--------------- Events Page ------------------*/
+

@@ -35,23 +35,21 @@
 					</thead>
 
 					<tbody>
+					<?php foreach($events as $event): ?>
+					<?php $catagory = $this->Cat_model->get($event->catagory_id); ?>
 						<tr>
-							<td>Arsenal Vs Bornmouth</td>
-							<td>Sport</td>
-							<td>London</td>
-							<td>England</td>
-							<td>Jan 03, 2017</td>
+							<td>
+								<a href="<?php echo site_url('admin/events/id/' . $event->id); ?>" title="<?php echo $event->default_title; ?>">
+								    <b><?php echo ucwords($event->default_title); ?></b>
+								</a>
+							</td>
+							<td><?php echo ucwords($catagory->default_title); ?></td>
+							<td><?php echo ucwords($event->city); ?></td>
+							<td><?php echo ucwords($event->country_id); ?></td>
+							<td><?php echo empty($event->event_date) ? date('d M, Y', $event->event_date) : '-'; ?></td>
 							<td><span class="fa fa-check-circle text-success"></span></td>
 						</tr>
-
-						<tr>
-							<td>Christmas Concert</td>
-							<td>Concert</td>
-							<td>Addis Ababa</td>
-							<td>Ethiopia</td>
-							<td>Jan 07, 2017</td>
-							<td><span class="fa fa-check-circle text-success"></span></td>
-						</tr>
+					<?php endforeach; ?>
 					</tbody>
 				</table>
 			</div><!-- /.table-resposive -->

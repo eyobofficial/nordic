@@ -8,6 +8,17 @@
 		</header>
 
 
+
+		<!-- VALIDATION ERRORS -->
+		<?php if(!empty(validation_errors())): ?>
+		<div class="panel panel-danger">
+			<div class="panel-body">
+				<?php echo validation_errors(); ?>
+			</div>
+		</div>
+	    <?php endif; ?>
+
+
 		<div class="panel panel-warning">
 			<div class="panel-heading">
 				<strong><span class="fa fa-book"></span> New Event</strong>
@@ -41,7 +52,12 @@
 							<div class="form-group">
 								<label for"eventCatagory">Event Catagory: </label>
 								<select name="event_catagory" id="eventCatagory" class="form-control">
-									<option value=""></option>
+									<?php foreach($catagories as $catagory): ?>
+									<option disabled selected value>----- Select a Catagory -------</option>
+									<option value="<?php echo $catagory->id; ?>">
+										<?php echo ucwords($catagory->default_title); ?>
+									</option>
+									<?php endforeach; ?>
 								</select>
 							</div><!-- /.form-group -->
 
@@ -51,7 +67,7 @@
 							<div class="form-group">
 								<?php
 									$submit_attr = array(
-												'name'  => 'submit',
+												'name'  => 'submit_add',
 												'id'    => 'submitForm',
 												'class' => 'btn btn-danger btn-block',
 												'value' => 'Create'

@@ -7,7 +7,7 @@ class Events extends Public_Controller {
 	 */
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(array('Event_model', 'Catagory_model', 'Ticket_model'));
+		$this->load->model(array('Event_model', 'Cat_model', 'Ticket_model'));
 		$this->load->helper(array('breadcrumb'));
 	}
 
@@ -35,14 +35,14 @@ class Events extends Public_Controller {
 	 */
 	public function catagory($catagory_id = NULL){
 
-		if($catagory_id == NULL OR ! $this->Catagory_model->row_exists(array('id' => $catagory_id))){
+		if($catagory_id == NULL OR ! $this->Cat_model->row_exists(array('id' => $catagory_id))){
 			$this->data['page_title'] = "events";
 			$this->data['heading'] = "all events";
 
 			$this->data['events'] = $this->Event_model->get_all();
 
 		}else{
-			$catagory = $this->Catagory_model->get($catagory_id);
+			$catagory = $this->Cat_model->get($catagory_id);
 
 			$this->data['page_title'] = $catagory->name;
 			$this->data['heading'] = $catagory->name . " Events";
@@ -92,7 +92,7 @@ class Events extends Public_Controller {
 		$this->data['tickets'] = $this->Ticket_model->get_where(array('event_id' => $event_id));
 
 
-		$this->data['page_title'] = $this->Catagory_model->get($this->data['event']->catagory_id)->name;
+		$this->data['page_title'] = $this->Cat_model->get($this->data['event']->catagory_id)->name;
 		$this->data['meta_title'] = $this->data['event']->event_title;
 
 

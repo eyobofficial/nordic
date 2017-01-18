@@ -52,6 +52,7 @@ class Catagories extends Admin_Controller {
 		}else{
 
 			// Get a catagory by id
+			$this->id($cat_id);
 		}
 	}
 
@@ -90,7 +91,7 @@ class Catagories extends Admin_Controller {
 			$this->data['main_view']    .= 'catagory_view';
 			$this->render('admin');
 		}else{
-			$this->all();
+			redirect('admin/catagories');
 		}
 		
 	}
@@ -130,7 +131,7 @@ class Catagories extends Admin_Controller {
 						
 
 				// Redirect to All Catagories page
-				$this->all();
+				redirect('admin/catagories/');
 
 			}else{
 				// Validation failed
@@ -182,7 +183,7 @@ class Catagories extends Admin_Controller {
 					array('id' => $cat_id)
 					);
 
-				$this->id($cat_id);
+				redirect('admin/catagories/id/' . $cat_id);
 
 			}else{
 				// Validation failed - Redirect to page
@@ -192,7 +193,8 @@ class Catagories extends Admin_Controller {
 		}elseif($this->input->post('submit_photo')){
 			echo "photo";
 		}else{
-			$this->all();
+
+			redirect('admin/catagories');
 		}
 
 	} // End of edit() method
@@ -206,12 +208,12 @@ class Catagories extends Admin_Controller {
 	 */
 	public function delete($cat_id = NULL){
 		if($cat_id == NULL){
-			$this->all();
+			redirect('admin/catagories');
 
 		}else{
 			$this->Cat_langs_model->delete(array('cat_id' => $cat_id));
 			$this->Cat_model->delete(array('id' => $cat_id));			
-			$this->all();
+			redirect('admin/catagories');
 		}
 	} 
 
@@ -265,8 +267,7 @@ class Catagories extends Admin_Controller {
 				$this->Cat_langs_model->save($data);
 			}
 				
-
-			$this->id($cat_id);
+			redirect('admin/catagories/id/' . $cat_id);
 
 		// Case 2: Edit Existing Translation
 		}elseif($this->input->post('submit_edit_trans')){
@@ -301,7 +302,7 @@ class Catagories extends Admin_Controller {
 			}
 				
 
-			$this->id($cat_id);
+			redirect('admin/catagories/id/' . $cat_id);
 
 		// Case 3: Delete Existing Translation	
 		}elseif($this->input->post('delete_trans')){
@@ -312,11 +313,11 @@ class Catagories extends Admin_Controller {
 
 
 			$this->Cat_langs_model->delete(array('id' => $trans_id));
-			$this->id($cat_id);
+			redirect('admin/catagories/id/' . $cat_id);
 
 		// Default Case	
 		}else{
-			$this->all();
+			redirect('admin/catagories');
 		}
 
 
