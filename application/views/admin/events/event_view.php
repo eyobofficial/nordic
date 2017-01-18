@@ -11,6 +11,16 @@
 		<a title="Publish <?php echo $event->default_title; ?> Event" href="<?php echo site_url('admin/events/publish/' . $event->id); ?>" class="publish-event btn btn-success pull-right"><span class="fa fa-trash"></span> Publish</a>
 		
 	</header>
+
+
+	<!-- VALIDATION ERRORS -->
+	<?php if(!empty(validation_errors())): ?>
+	<div class="panel panel-danger">
+		<div class="panel-body">
+			<?php echo validation_errors(); ?>
+		</div>
+	</div>
+    <?php endif; ?>
 	
 	<article class="subsection row">
 
@@ -51,32 +61,20 @@
 							<tr>
 								<td>Event Date: </td>
 								<td>
-								<?php 
-									if($event->event_date == NULL){
-										echo '-';
-									}else{
-										echo date('d M, Y', strtotime($event->event_date)) ;
-									}
-								?>
+									<?php echo is_null($event->event_date) ? '-' : date('d M, Y', strtotime($event->event_date)) ; ?>
 								</td>
 							</tr>
 
 							<tr>
 								<td>Venue: </td>
 								<td>
-								<?php 
-									if($event->venue == NULL OR empty($event->venue)){
-										echo '-';
-									}else{
-										echo ucwords($event->venue);
-									}
-								?>
+									<?php echo empty($event->venue) ? '-' : ucwords($event->venue); ?>
 								</td>
 							</tr>
 
 							<tr>
 								<td>Location: </td>
-								<td>London, England</td>
+								<td><b><?php echo empty($event->city) ? '-' : ucwords($event->city); ?></b> <br>England</td>
 							</tr>
 						</table>
 					</div>

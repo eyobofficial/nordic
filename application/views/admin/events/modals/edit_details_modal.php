@@ -4,12 +4,12 @@
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><?php echo $modal_title; ?></h4>
+        <h4 class="modal-title"><?php echo $event->default_title; ?></h4>
       </div><!-- /.modal-header -->
 
       <div class="col-sm-10 col-sm-offset-1">
          <div class="modal-body">
-        <?php echo form_open('admin/events/details', array('name' => 'event_details_form', 'id' => 'eventDetailsForm')); ?>
+         <?php echo form_open('admin/events/details/' . $event->id, array('name' => 'event_details_form', 'id' => 'eventDetailsForm')); ?>
         
             
             <!-- Event Title -->
@@ -21,7 +21,7 @@
                       'id'          => 'eventTitle',
                       'class'       => 'form-control',
                       'placeholder' => 'Example: Sport, Concert, Theatre',
-                      'value'       => set_value('cat_title')
+                      'value'       =>  $event->default_title
                   );
 
                 echo form_input($input_attr);
@@ -34,7 +34,13 @@
             <div class="form-group">
               <label for"eventCatagory">Event Catagory: </label>
               <select name="event_catagory" id="eventCatagory" class="form-control">
-                <option value=""></option>
+
+                <?php foreach($catagories as $catagory): ?>
+                     <option value="<?php echo $catagory->id; ?>" <?php if($catagory->id == $event->catagory_id) echo 'selected'; ?>>
+                        <?php echo ucwords($catagory->default_title); ?>
+                     </option>
+                <?php endforeach; ?>
+
               </select>
             </div><!-- /.form-group -->
 
@@ -43,11 +49,13 @@
             <div class="form-group">
               <label for="eventDate">Event Date</label>
               <?php
+                $event_date = empty($event->event_date) ? date('d-m-Y H:i:s') : date('d-m-Y H:i:s', strtotime($event->event_date));
+
                 $input_attr = array(
                       'name'        => 'event_date',
                       'id'          => 'eventDate',
                       'class'       => 'form-control',
-                      'value'       => set_value('event_date')
+                      'value'       => $event_date
                   );
 
                 echo form_input($input_attr);
@@ -63,14 +71,15 @@
                       'name'        => 'event_venue',
                       'id'          => 'eventVenue',
                       'class'       => 'form-control',
-                      'value'       => set_value('event_venue')
+                      'value'       => $event->venue
                   );
 
                 echo form_input($input_attr);
               ?>
             </div><!-- /.form-group -->
 
-
+            
+            <!-- Event City -->
             <div class="form-group">
               <label for="city">City</label>
               <?php
@@ -78,7 +87,7 @@
                       'name'        => 'city',
                       'id'          => 'city',
                       'class'       => 'form-control',
-                      'value'       => set_value('city')
+                      'value'       => $event->city
                   );
 
                 echo form_input($input_attr);

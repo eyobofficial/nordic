@@ -8,6 +8,7 @@ class Events extends Admin_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model(array('Event_model', 'Cat_model', 'Event_langs_model', 'Lang_model'));
+		$this->load->library(array('form_validation'));
 		$this->data['page_section'] = 'events';
 		$this->data['main_view'] = 'events/';
 		$this->data['modal_view'] = 'events/modals/';
@@ -49,6 +50,7 @@ class Events extends Admin_Controller {
 			
 			$this->data['event']         = $event;
 			$this->data['catagory']      = $catagory;
+			$this->data['catagories']    = $this->Cat_model->get_all();
 			$this->data['translations']  = $this->Event_langs_model->get_where(array('event_id' => $event_id));
 			$this->data['all_languages'] = $this->Lang_model->get_all();
 			$this->data['main_view']    .= 'event_view';
@@ -59,33 +61,8 @@ class Events extends Admin_Controller {
 			redirect('admin/events');
 		}
 		
-	}
+	}/**** End id() method ****/
 
-
-	/**
-	 * An Event - This method is no longer in use!
-	 * 
-	 * I only kept to refer modal code below for later use
-	 * !IMPORTANT: Should be deleted later!!!!
-	 */
-	public function idxxx($event_id){
-
-		// Edit Event Details Form Submitted
-		if($this->input->post('submit_details')){
-			$title = $this->input->post('event_title');
-
-			$this->Test_model->save(array('title' => $title));
-		}
-
-		$this->data['main_view']  .= 'event_view';
-		$this->data['page_title']  = 'All Events';
-		$this->data['modal_view'] .= 'test_modal';
-		$this->data['modal_title'] = 'Some Cool Events';
-		$this->data['modal_id']    = 'testModal';
-
-		$this->render('admin');
-	
-	}
 
 
 
@@ -94,9 +71,6 @@ class Events extends Admin_Controller {
 	 */
 	public function add(){
 		if($this->input->post('submit_add')){
-
-			// Load form validation libarary
-			$this->load->library(array('form_validation'));
 
 			// Change error message delimeter
 			$this->form_validation->set_error_delimiters('<p class="text-danger bold"><span class="fa fa-exclamation-circle"></span>&nbsp; ', '</p>');
@@ -111,7 +85,7 @@ class Events extends Admin_Controller {
 
 				// Retrieve from POST global variables
 				$event_title = $this->input->post(trim('event_title'));
-				$event_cat   = nl2br($this->input->post(trim('event_catagory')));
+				$event_cat   = $this->input->post(trim('event_catagory'));
 
 
 				// Insert 'event title' & 'event catagory' into 'events' table of database
@@ -147,9 +121,52 @@ class Events extends Admin_Controller {
 	/**
 	 * Edit event details
 	 */
-	public function details(){
+	public function details($event_id){
 
-		
+		if($this->input->post('submit_details')){
+
+			// Change error message delimeter
+			$this->form_validation->set_error_delimiters('<p class="text-danger bold"><span class="fa fa-exclamation-circle"></span>&nbsp; ', '</p>');
+
+			// Set validation rule
+			$this->form_validation->set_rules('event_title', '&apos;Event Title&apos;', 'trim|required');
+			$this->form_validation->set_rules('event_catagory', '&apos;Event Catagory&apos;', 'required');
+			$this->form_validation->set_rules('city', '&apos;Event Title&apos;', 'trim|required');
+
+
+			// Check the validation
+			if($this->form_validation->run() == TRUE){
+				// Valiation is successful
+
+				// Retrieve from POST global variables
+				$event_title = $this->input->post(trim('event_title'));
+				$event_cat   = (int)$this->input->post('event_catagory');
+				$event_venue  = $this->input->post(trim('event_venue'));
+				$event_city  = $this->input->post(trim('city'));
+
+
+
+				// Update details
+				$this->Event_model->save(array(
+											'default_title' => $event_title, 
+											'catagory_id'   => (int)$event_cat,
+											'venue'         => $event_venue,
+											'city'          => $event_city
+											), 
+										array(
+											'id' => $event_id
+											));
+				// Redirect to event home page
+				redirect('admin/events/id/' . $event_id);
+
+			}else{
+				$this->id($event_id);
+			}
+		}else{
+			// Redirect to event home page
+			redirect('admin/events/id/' . $event_id);
+		}
+	
 	}
 
 
