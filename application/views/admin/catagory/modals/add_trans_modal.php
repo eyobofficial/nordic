@@ -14,7 +14,8 @@
 
             <!-- HIDDEN VALUES -->
             <?php echo form_hidden(array('cat_id' => $catagory->id)); ?>
-
+            
+            <legend>Add Translation</legend>
 
             <!-- SELECT LANGUAGE -->
             <div class="form-group">

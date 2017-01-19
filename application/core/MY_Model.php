@@ -213,7 +213,7 @@ class MY_Model extends CI_Model {
 
 		$this->db->select($this->_pk);
 
-		if(is_int( (int)$where)){
+		if(is_int($where)){
 			$this->db->where(array($this->_pk => $where));
 		}else{
 			$this->db->where($where);

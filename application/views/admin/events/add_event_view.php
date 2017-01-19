@@ -52,8 +52,8 @@
 							<div class="form-group">
 								<label for"eventCatagory">Event Catagory: </label>
 								<select name="event_catagory" id="eventCatagory" class="form-control">
-									<?php foreach($catagories as $catagory): ?>
 									<option disabled selected value>----- Select a Catagory -------</option>
+									<?php foreach($catagories as $catagory): ?>
 									<option value="<?php echo $catagory->id; ?>">
 										<?php echo ucwords($catagory->default_title); ?>
 									</option>

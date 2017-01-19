@@ -6,6 +6,7 @@
 			<h2 class="h4 text-left actionTitle"><span class="fa fa-book"></span>&nbsp; Catagories</h1>
 		</header>
 
+		<?php echo flash($this->session->flash_msg); ?>
 
 
 		<div class="panel panel-warning panel-md">
@@ -43,6 +44,8 @@
 										'catagory' => $catagory,
 										'modal_id' => 'editModal' . $catagory->id
 								);
+
+							$event_count = $this->Event_model->num_rows(array('catagory_id' => $catagory->id));
 						?>
 
 						<!-- modal -->
@@ -55,7 +58,7 @@
 								</a>
 							</td>
 
-							<td> - </td>
+							<td> <?php echo $event_count; ?> </td>
 							<td class="text-right">
 
 								<!-- Button(link) trigger modal -->

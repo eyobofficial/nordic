@@ -5,12 +5,33 @@
 
 		<h2 class="h4 text-left"><span class="fa fa-book"></span>&nbsp; <?php echo $event->default_title; ?></h2>
 
-
+		
+		<!-- Delete Event link(button) -->
 		<a title="Delete <?php echo $event->default_title; ?> Event" href="<?php echo site_url('admin/events/delete/' . $event->id); ?>" class="delete-event btn btn-danger pull-right"><span class="fa fa-trash"></span> Delete</a>
+		
+		
 
-		<a title="Publish <?php echo $event->default_title; ?> Event" href="<?php echo site_url('admin/events/publish/' . $event->id); ?>" class="publish-event btn btn-success pull-right"><span class="fa fa-trash"></span> Publish</a>
+		<!-- Publish/Unpublish Event link -->
+		<?php if($event->publish == 1): ?>
+			<a title="Publish <?php echo $event->default_title; ?> Event" href="<?php echo site_url('admin/events/publish/' . $event->id); ?>" class="publish-event btn btn-default pull-right"><span class="fa fa-pause-circle"></span> Unpublish</a>
+		<?php else: ?>
+			<a title="Publish <?php echo $event->default_title; ?> Event" href="<?php echo site_url('admin/events/publish/' . $event->id); ?>" class="publish-event btn btn-success pull-right"><span class="fa fa-play-circle"></span> Publish</a>
+		<?php endif; ?>
 		
 	</header>
+
+	<!-- Flash Messages -->
+	<?php echo flash($this->session->flash_msg); ?>
+
+
+	<!-- SUCCESS STATUS -->
+	<?php if($this->session->success_msg): ?>
+	<div class="panel panel-success">
+		<div class="panel-body">
+			<?php echo $this->session->success_msg; ?>
+		</div>
+	</div>
+    <?php endif; ?>
 
 
 	<!-- VALIDATION ERRORS -->
@@ -134,7 +155,11 @@
 				</div><!-- /.panel-heading -->
 
 				<div class="panel-body">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, recusandae voluptates nostrum similique repellendus. Debitis quos placeat distinctio earum, facilis velit possimus consequatur impedit! Suscipit, quas recusandae ratione quam. Ipsum.</p>
+					<?php if(empty($event->summary)): ?>
+						<p class="h4 text-center fadeMe">No Description</p>
+					<?php else: ?>
+						<p><?php echo ucfirst($event->summary); ?></p>
+					<?php endif; ?>
 				</div><!-- /.panel-body -->
 			</div>
 		</div><!-- /.col-sm-6 -->
@@ -142,8 +167,7 @@
 
 
 
-
-		<!-- LANGUAGE TRANSLATION -->
+		<!-- LANGUAGE TRANSLATION  -->
 		<div class="col-sm-6" id="eventDetails">
 			<div class="panel panel-warning panel-md">
 				<div class="panel-heading">
@@ -152,16 +176,13 @@
 					<span class="pull-right">
 						
 						<!-- Button(link) trigger modal -->
-						<a href="#" type="button" data-toggle="modal" data-target="#addLangModal" title="Add Translations">
+						<a href="#" type="button" data-toggle="modal" data-target="#addTransModal" title="Add Translations">
 							<span class="fa fa-plus"></span> Add
 						</a>
 			
 
-						<!-- edit translations modal -->
-						<?php //$this->load->view('admin/events/modals/edit_langs_modal'); ?>
-
 						<!-- add translations modal -->
-						<?php //$this->load->view('admin/events/modals/add_langs_modal'); ?>
+						<?php $this->load->view('admin/events/modals/add_trans_modal'); ?>
 						
 					</span>
 				</div><!-- /.panel-heading -->
@@ -169,30 +190,42 @@
 			<div class="table-responsive">
 				<table class="table table-striped table-hover listTable">
 					
-					<tr>
-						<td>Svenska</td>
-						<td class="text-center">SV</td>
-						<td class="text-center"><i>Futbol Match<i></td>
-						<td class="text-center">
-							<!-- Button(link) trigger modal -->
-							<a href="#" type="button" data-toggle="modal" data-target="#editLangModal" title="Edit Translations">
-								<span class="fa fa-gear"></span> Edit
-							</a>
-						</td>
-					</tr>
-					
+					<!-- LANGAUGES TRANSLATIONS -->
+					<?php foreach($translations as $translation): ?>
+		
+						<?php
+							$lang = $this->Lang_model->get($translation->lang_id);
+							$data = array(
+										'translation'   => $translation,
+										'lang'			=> $lang,
+										'modal_id'      => 'editTransModal' . $translation->id
+								);
+						?>
 
-					<tr>
-						<td>French</td>
-						<td class="text-center">FR</td>
-						<td class="text-center"><i>Futbol Game<i></td>
-						<td class="text-center">
-							<!-- Button(link) trigger modal -->
-							<a href="#" type="button" data-toggle="modal" data-target="#editLangModal" title="Edit Translations">
-								<span class="fa fa-gear"></span> Edit
-							</a>
-						</td>
-					</tr>
+						<!-- modal -->
+						<?php $this->load->view('admin/events/modals/edit_translation_modal', $data); ?>
+
+						<tr>
+							<td>
+								<!-- Button(link) trigger modal -->
+								<a href="#" type="button" data-toggle="modal" data-target="#<?php echo $data['modal_id']; ?>" title="<?php echo ucwords($translation->title); ?>">
+									<?php echo ucwords($translation->title); ?>
+								</a>
+							</td>
+
+							<td class="text-center">
+								<?php echo ucwords($lang->name); ?> <b>(<?php echo strtoupper($lang->abbr); ?>)</b>
+							</td> 
+
+							<td class="text-right">
+								<!-- Button(link) trigger modal -->
+								<a href="#" type="button" data-toggle="modal" data-target="#<?php echo $data['modal_id']; ?>" title="Edit Translations">
+									<span class="fa fa-gear"></span> Edit
+								</a>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+
 					
 					
 				</table>

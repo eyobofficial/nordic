@@ -8,6 +8,9 @@
 		<a title="Delete <?php echo $catagory->default_title; ?> Catagory" href="<?php echo site_url('admin/catagories/delete/' . $catagory->id); ?>" class="delete-catagory btn btn-danger pull-right"><span class="fa fa-trash"></span> Delete</a>
 	</header>
 
+
+	<?php echo flash($this->session->flash_msg); ?>
+
 	
 	<!-- VALIDATION ERRORS -->
 	<?php if(!empty(validation_errors())): ?>
@@ -50,7 +53,7 @@
 
 							<tr>
 								<td class="td-xs">Event Count: </td>
-								<td>5</td>
+								<td><?php echo $event_count; ?></td>
 							</tr>
 
 							<tr>
@@ -113,7 +116,7 @@
 			
 
 						<!-- add translations modal -->
-						<?php $this->load->view('admin/catagory/modals/add_lang_modal'); ?>
+						<?php $this->load->view('admin/catagory/modals/add_trans_modal'); ?>
 						
 					</span>
 				</div><!-- /.panel-heading -->

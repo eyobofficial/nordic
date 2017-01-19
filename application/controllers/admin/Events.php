@@ -1,10 +1,39 @@
 <?php
 
+
+/**
+ * Events Controller: Handles Admin Events pages and features
+ *
+ * LIST OF METHODS
+ * ------------------
+ * 0. constructor   : Load necessary libraries, helpers and models
+ *
+ * 1. index()	    : Handles the default views of the events page requests
+ *
+ * 2. all()		    : Displays all events 
+ *
+ * 3. id()		    : Dispaly a single event
+ *
+ * 4. add()		    : Displays and process add new event page
+ *
+ * 5. details()     : Edit event details
+ *
+ * 6. summary()	    : Edit event description
+ *
+ * 7. delete()	    : Delete existing Catagory
+ *
+ * 8. Translation() : Handles translations for the a Catagory (i.e. Add, Edit and Delete translations)
+ *
+ * 9. Publish()     : Publish and unpublish event
+ *
+ */
+
+
+
+
 class Events extends Admin_Controller {
 	
-	/**
-	 * Constructor
-	 */
+/*------------------------------------------------- 0) CONSTRUCTOR ---------------------------------------------------------------*/
 	public function __construct(){
 		parent::__construct();
 		$this->load->model(array('Event_model', 'Cat_model', 'Event_langs_model', 'Lang_model'));
@@ -15,6 +44,9 @@ class Events extends Admin_Controller {
 	}
 
 
+
+
+/*------------------------------------------------- 1) INDEX METHOD ----------------------------------------------------------*/
 	public function index($event_id = NULL){
 		if($event_id === NULL){
 
@@ -26,8 +58,13 @@ class Events extends Admin_Controller {
 	}
 
 
+/*-------------------------=----------------------- 2) ALL METHODS --------------------------------------------------------*/
+
 	/**
-	 * All Events
+	 * Display all events 
+	 * 
+	 * @param 		int
+	 *
 	 */
 	public function all(){
 		$this->data['events']     = $this->Event_model->get_all();
@@ -35,12 +72,20 @@ class Events extends Admin_Controller {
 		$this->data['page_title'] = 'All Events';
 
 		$this->render('admin');
-	}
+
+	} /****** End of all() **************/
 
 
-	/*-------------------------- ID METHOD -------------------------------------*/
+
+
+
+/*---------------------------------------------------- 3) ID METHOD ------------------------------------------------------*/
+
 	/**
-	 * Display a Catagory
+	 * Display a single event using event id
+	 *
+	 * @param 	int
+	 *
 	 */
 	public function id($event_id){
 
@@ -61,13 +106,15 @@ class Events extends Admin_Controller {
 			redirect('admin/events');
 		}
 		
-	}/**** End id() method ****/
+	}/**** End of id() method ****/
 
 
 
+/*----------------------------------------------------- 4) ADD METHOD -------------------------------------------------------*/
 
 	/**
-	 * Add new event
+	 * Add a new event 
+	 *
 	 */
 	public function add(){
 		if($this->input->post('submit_add')){
@@ -93,6 +140,14 @@ class Events extends Admin_Controller {
 											'default_title' => $event_title, 
 											'catagory_id'   => (int)$event_cat,
 											));
+
+				// Success flash session message
+				$status = array(
+								'status' => 'success',
+								'msg'    =>  'You have successfully created a new Event'
+							);
+
+				$this->session->set_flashdata('flash_msg', $status);
 						
 
 				// Redirect to newly created event
@@ -117,9 +172,12 @@ class Events extends Admin_Controller {
 	}
 
 
-
+/*-----------------------------------------------------5) DETAILS METHOD ------------------------------------------------*/
 	/**
 	 * Edit event details
+	 *
+	 * @param  	int 
+	 *
 	 */
 	public function details($event_id){
 
@@ -156,6 +214,16 @@ class Events extends Admin_Controller {
 										array(
 											'id' => $event_id
 											));
+
+				// Success flash session message
+				$status = array(
+								'status' => 'success',
+								'msg'    =>  'You have successfully updated the Event details'
+							);
+
+				$this->session->set_flashdata('flash_msg', $status);
+
+
 				// Redirect to event home page
 				redirect('admin/events/id/' . $event_id);
 
@@ -167,8 +235,252 @@ class Events extends Admin_Controller {
 			redirect('admin/events/id/' . $event_id);
 		}
 	
-	}
+	} /******* End details() Method ************/
 
+
+
+
+
+
+/*--------------------------------------------------- 6) SUMMARY METHOD -----------------------------------------------------------------*/
+
+	/**
+	 * Edit the event description 
+	 *
+	 * @param 	int
+	 *
+	 */
+	public function summary($event_id){
+		if($this->input->post('submit_summary')){
+			$summary = (string)trim($this->input->post('event_desc'));
+			//$summary = nl2br($summary); 
+
+			$this->Event_model->save(array('summary' => $summary), array('id' => $event_id));
+
+			// Success flash session message
+			$status = array(
+							'status' => 'success',
+							'msg'    =>  'You have successfully updated the Event description'
+						);
+
+			$this->session->set_flashdata('flash_msg', $status);
+		}
+
+		// Redirect to event home page
+		redirect('admin/events/id/' . $event_id);
+
+
+	} /***** End of summary() method *****/
+
+
+
+
+
+
+/*--------------------------------------------------- 7) DELETE METHOD ------------------------------------------------------------*/
+
+	/**
+	 * Delete an event 
+	 * 
+	 */
+	public function delete($event_id = NULL){
+		if($event_id == NULL){
+			redirect('admin/events');
+		}else{
+			$this->Event_langs_model->delete(array('event_id' => $event_id));
+			$this->Event_model->delete(array('id' => $event_id));
+
+			// Success flash session message
+			$status = array(
+							'status' => 'success',
+							'msg'    =>  'You have successfully deleted an Event'
+						);
+
+			$this->session->set_flashdata('flash_msg', $status);
+
+			// Redirect to all events page
+			redirect('admin/events');
+		}
+
+	} /******** End delete() method **********/
+
+
+
+
+
+/*------------------------------------------------------ 8) TRANSLATION METHOD ------------------------------------------------------*/
+
+	/**
+	 * Add, edit and delete event translations
+	 * Method handles 3 cases:
+	 * 
+	 * Case 1: Add New Translatios
+	 * Case 2: Edit Existing Translations
+	 * Case 3: Delete Existing Translations
+	 */
+	public function translation(){
+
+		// Case 1: Add New Translations
+		if($this->input->post('submit_add_trans')){
+
+			// Get event id
+			$event_id  = $this->input->post('event_id');
+
+
+			// Change error message delimeter
+			$this->form_validation->set_error_delimiters('<p class="text-danger bold"><span class="fa fa-exclamation-circle"></span>&nbsp; ', '</p>');
+
+			// Set validation rule
+			$this->form_validation->set_rules('event_title', '&apos;Title&apos;', 'trim|required');
+			$this->form_validation->set_rules('lang', '&apos;Language&apos;', 'required');
+
+
+			// Check the validation
+			if($this->form_validation->run() == TRUE){
+
+				// Valiation is successful
+				$lang_id = $this->input->post('lang');
+				$title   = $this->input->post('event_title');
+				$summary = $this->input->post('event_desc');
+
+				$data = array(
+						'event_id'  => $event_id,
+						'lang_id'   => $lang_id,
+						'title'     => $title,
+						'summary'   => $summary
+					);
+
+				$this->Event_langs_model->save($data);
+
+				// Success flash session message
+				$status = array(
+								'status' => 'success',
+								'msg'    =>  'You have successfully created a new translation for the Event'
+							);
+
+				$this->session->set_flashdata('flash_msg', $status);
+
+				// Redirect to the event
+				redirect('admin/events/id/' . $event_id);
+
+			}else{
+				// Validation Failed
+				$this->id($event_id);
+			}
+						
+
+		// Case 2: Edit Existing Translation
+		}elseif($this->input->post('submit_edit_trans')){
+
+			// Get Event and Translation ID
+			$event_id  = $this->input->post('event_id');
+			$trans_id  = $this->input->post('translation_id');
+
+			// Change error message delimeter
+			$this->form_validation->set_error_delimiters('<p class="text-danger bold"><span class="fa fa-exclamation-circle"></span>&nbsp; ', '</p>');
+
+			// Set validation rule
+			$this->form_validation->set_rules('event_title', '&apos;Title&apos;', 'trim|required');
+
+
+			// Check the validation
+			if($this->form_validation->run() == TRUE){
+
+				// Valiation is successful
+				$title   = $this->input->post('event_title');
+				$summary = $this->input->post('event_desc');
+
+				$data = array(
+						'title'   => $title,
+						'summary' => $summary
+					);
+
+				$this->Event_langs_model->save($data, array('id' => $trans_id));
+
+				// Success flash session message
+				$status = array(
+								'status' => 'success',
+								'msg'    =>  'You have successfully updated the translation for this Event'
+							);
+
+				$this->session->set_flashdata('flash_msg', $status);
+
+
+				redirect('admin/events/id/' . $event_id);
+
+			}else{
+				// Validation Failed
+				$this->id($event_id);
+			}
+
+		// Case 3: Delete Existing Translation	
+		}elseif($this->input->post('delete_trans')){
+
+			// Get Catagory and Translation id
+			$event_id  = $this->input->post('event_id');
+			$trans_id  = $this->input->post('translation_id');
+
+
+			$this->Event_langs_model->delete(array('id' => $trans_id));
+
+			// Success flash session message
+			$status = array(
+							'status' => 'success',
+							'msg'    =>  'You have successfully deleted a translation.'
+						);
+
+			$this->session->set_flashdata('flash_msg', $status);
+
+
+			redirect('admin/events/id/' . $event_id);
+
+		// Default Case	
+		}else{
+			redirect('admin/events');
+		}
+
+
+	}/***** End translation() method ********/
+
+
+
+/*--------------------------------------------------- 7) DELETE METHOD ------------------------------------------------------------*/
+
+	/**
+	 * Delete an event 
+	 * 
+	 */
+	public function publish($event_id){
+
+		$event = $this->Event_model->get($event_id);
+
+		// If the event is published, Unpublish it
+		if($event->publish == 1){
+
+			$publish_action = 0;
+			$publish_msg    = 'unpublished';
+
+		// If the event is Unpublished
+		}else{
+
+			$publish_action = 1;
+			$publish_msg    = 'published';
+		}
+
+
+		$this->Event_model->save(array('publish' => $publish_action), array('id' => $event_id));
+
+		// Success flash session message
+		$status = array(
+						'status' => 'success',
+						'msg'    =>  'You have successfully ' . $publish_msg . ' the Event.'
+					);
+
+		$this->session->set_flashdata('flash_msg', $status);
+
+
+		redirect('admin/events/id/' . $event_id);
+	}
 
 
 

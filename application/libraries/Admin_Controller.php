@@ -7,6 +7,7 @@ class Admin_Controller extends MY_Controller {
 		parent::__construct();
 		$this->load->model(array('Message_model', 'Lang_model'));
 		$this->load->helper(array('nav', 'form'));
+		$this->load->library(array('session'));
 		$this->data['admin'] = TRUE;
 		$this->data['page_title'] = '';
 	}

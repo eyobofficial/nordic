@@ -29,7 +29,7 @@ class Catagories extends Admin_Controller {
 	/*-------------------------- CONSTRUCTOR METHOD -------------------------------------*/
 	public function __construct(){
 		parent::__construct();
-		$this->load->model(array('Cat_model', 'Cat_langs_model', 'Lang_model'));
+		$this->load->model(array('Cat_model', 'Cat_langs_model', 'Lang_model', 'Event_model'));
 
 		$this->data['page_section'] = 'catagories';
 		$this->data['main_view'] = 'catagory/';
@@ -86,6 +86,7 @@ class Catagories extends Admin_Controller {
 
 		if($this->Cat_model->get($cat_id)){
 			$this->data['catagory']      = $this->Cat_model->get($cat_id);
+			$this->data['event_count']   = $this->Event_model->num_rows(array('catagory_id' => $cat_id));
 			$this->data['translations']  = $this->Cat_langs_model->get_where(array('cat_id' => $cat_id));
 			$this->data['all_languages'] = $this->Lang_model->get_all();
 			$this->data['main_view']    .= 'catagory_view';
@@ -129,6 +130,13 @@ class Catagories extends Admin_Controller {
 				// Insert 'title' & 'summary' into 'Catagories' table of database
 				$this->Cat_model->save(array('default_title' => $cat_title, 'default_summary' => $cat_desc));
 						
+				// Success flash session message
+				$status = array(
+								'status' => 'success',
+								'msg'    =>  'You successfully created a new Catagory'
+							);
+
+				$this->session->set_flashdata('flash_msg', $status);
 
 				// Redirect to All Catagories page
 				redirect('admin/catagories/');
@@ -183,6 +191,14 @@ class Catagories extends Admin_Controller {
 					array('id' => $cat_id)
 					);
 
+				// Success flash session message
+				$status = array(
+								'status' => 'success',
+								'msg'    =>  'You have successfully updated the Catagory'
+							);
+
+				$this->session->set_flashdata('flash_msg', $status);
+
 				redirect('admin/catagories/id/' . $cat_id);
 
 			}else{
@@ -211,8 +227,33 @@ class Catagories extends Admin_Controller {
 			redirect('admin/catagories');
 
 		}else{
+
+			// Check if the catagory contain events
+			if($this->Event_model->num_rows(array('catagory_id' => $cat_id)) > 0){
+
+				// Fail flash session message
+				$status = array(
+								'status' => 'error',
+								'msg'    =>  'The Catagory you are trying to delete contains some Events. Please first delete the Events before attempting to delete the Catagory.'
+							);
+
+				$this->session->set_flashdata('flash_msg', $status);
+
+				redirect('admin/catagories/id/' . $cat_id);
+			}
+
+			
 			$this->Cat_langs_model->delete(array('cat_id' => $cat_id));
-			$this->Cat_model->delete(array('id' => $cat_id));			
+			$this->Cat_model->delete(array('id' => $cat_id));
+
+			// Success flash session message
+			$status = array(
+							'status' => 'success',
+							'msg'    =>  'You have successfully deleted a Catagory.'
+						);
+
+			$this->session->set_flashdata('flash_msg', $status);
+
 			redirect('admin/catagories');
 		}
 	} 
@@ -265,9 +306,23 @@ class Catagories extends Admin_Controller {
 					);
 
 				$this->Cat_langs_model->save($data);
+
+				// Success flash session message
+				$status = array(
+								'status' => 'success',
+								'msg'    =>  'You have successfully add a new Translation'
+							);
+
+				$this->session->set_flashdata('flash_msg', $status);
+
+				redirect('admin/catagories/id/' . $cat_id);
+
+			}else{
+				// Validation Failed
+				$this->id($cat_id);
 			}
 				
-			redirect('admin/catagories/id/' . $cat_id);
+			
 
 		// Case 2: Edit Existing Translation
 		}elseif($this->input->post('submit_edit_trans')){
@@ -299,10 +354,22 @@ class Catagories extends Admin_Controller {
 					);
 
 				$this->Cat_langs_model->save($data, array('id' => $trans_id));
+
+				// Success flash session message
+				$status = array(
+								'status' => 'success',
+								'msg'    =>  'You have successfully updated the Translation'
+							);
+
+				$this->session->set_flashdata('flash_msg', $status);
+
+				redirect('admin/catagories/id/' . $cat_id);
+
+			}else{
+				// Validation Failed
+				$this->id($cat_id);
 			}
 				
-
-			redirect('admin/catagories/id/' . $cat_id);
 
 		// Case 3: Delete Existing Translation	
 		}elseif($this->input->post('delete_trans')){
@@ -313,6 +380,14 @@ class Catagories extends Admin_Controller {
 
 
 			$this->Cat_langs_model->delete(array('id' => $trans_id));
+
+			// Success flash session message
+			$status = array(
+							'status' => 'error',
+							'msg'    =>  'You successfully deleted a Translation'
+						);
+
+			$this->session->set_flashdata('flash_msg', $status);
 			redirect('admin/catagories/id/' . $cat_id);
 
 		// Default Case	

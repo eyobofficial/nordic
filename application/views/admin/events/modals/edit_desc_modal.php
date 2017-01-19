@@ -4,12 +4,12 @@
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><?php echo $modal_title; ?></h4>
+        <h4 class="modal-title"><?php echo $event->default_title; ?></h4>
       </div><!-- /.modal-header -->
 
       <div class="col-sm-10 col-sm-offset-1">
          <div class="modal-body">
-        <?php echo form_open('admin/events/event', array('name' => 'event_desc_form', 'id' => 'eventDescForm')); ?>
+        <?php echo form_open('admin/events/summary/' . $event->id, array('name' => 'event_desc_form', 'id' => 'eventDescForm')); ?>
             
             <div class="form-group">
               <label for="eventDescInput">Edit Description</label>
@@ -18,8 +18,8 @@
                       'name'        => 'event_desc',
                       'id'          => 'eventDescInput',
                       'class'       => 'form-control',
-                      'value'       => set_value('event_desc')
-                  );
+                      'value'       => $event->summary
+                  ); 
 
                 echo form_textarea($textarea_attr);
               ?>
@@ -32,7 +32,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <input type="submit" name="submit_details" class="btn btn-primary" id="submitModalForm" value="Save changes">
+        <input type="submit" name="submit_summary" class="btn btn-primary" id="submitModalForm" value="Save changes">
       </div><!-- /.modal-footer -->
     
         <?php echo form_close(); ?>

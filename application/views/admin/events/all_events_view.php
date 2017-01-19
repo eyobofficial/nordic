@@ -1,6 +1,7 @@
 <section class="col-sm-12">
 	
 	<article class="subsection">
+	
 		<!-- TITLE HEADER -->
 		<header>
 			<h2 class="h4 text-left actionTitle"><span class="fa fa-book"></span>&nbsp; Events</h1>
@@ -8,7 +9,12 @@
 
 
 
-		<div class="panel panel-warning">
+		<!-- Flash Messages -->
+		<?php echo flash($this->session->flash_msg); ?>
+
+
+
+		<div class="panel panel-warning panel-xlg">
 			<div class="panel-heading">
 				<strong><span class="fa fa-book"></span> All Events</strong>
 
@@ -27,8 +33,7 @@
 						<tr>
 							<th span="col">Event Name</th>
 							<th span="col">Catagory</th>
-							<th span="col">City</th>
-							<th span="col">Country</th>
+							<th span="col">Location</th>
 							<th span="col">Event Date</th>
 							<th span="col">Publihed</th>
 						</tr>
@@ -44,8 +49,10 @@
 								</a>
 							</td>
 							<td><?php echo ucwords($catagory->default_title); ?></td>
-							<td><?php echo ucwords($event->city); ?></td>
-							<td><?php echo ucwords($event->country_id); ?></td>
+							<td>
+								<?php echo ucwords($event->city); ?><br>
+								<?php echo ucwords($event->country_id); ?>
+							</td>
 							<td><?php echo empty($event->event_date) ? date('d M, Y', $event->event_date) : '-'; ?></td>
 							<td><span class="fa fa-check-circle text-success"></span></td>
 						</tr>
