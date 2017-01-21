@@ -94,7 +94,9 @@
 				<div class="panel-body">
 					
 
-					<!-- PHOTO CONTAINERS GOES HERE -->
+					<div class="text-center">
+						<img alt="Default Photo" src="<?php echo base_url($default_photo); ?>" class="img-responsive">
+					</div>
 
 
 				</div><!-- /.panel-body -->

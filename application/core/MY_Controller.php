@@ -4,6 +4,7 @@
 class MY_Controller extends CI_Controller {
 	
 	public $data = array();
+	public $upload_path = './uploads/';
 
 	/**
 	 * Constructor
@@ -13,14 +14,11 @@ class MY_Controller extends CI_Controller {
 
 		$this->load->library(array('session'));
 		$this->load->model(array('Test_model'));
-
 		$this->data['site_name']    = $this->config->item('site_name');
 		$this->data['tagline']      = $this->config->item('tagline');
 		$this->data['author']       = $this->config->item('author');
 		$this->data['author_email'] = $this->config->item('author_email');
 		$this->data['admin']        = FALSE; 
-
-
 		
 	}
 

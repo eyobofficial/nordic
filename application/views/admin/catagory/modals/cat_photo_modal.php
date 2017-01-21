@@ -9,7 +9,7 @@
 
       <div class="col-sm-10 col-sm-offset-1">
          <div class="modal-body">
-        <?php echo form_open('admin/catagories/edit', array('name' => 'cat_photo_form', 'id' => 'catPhotoForm')); ?>
+        <?php echo form_open_multipart('admin/catagories/photo/' . $catagory->id, array('name' => 'cat_photo_form', 'id' => 'catPhotoForm')); ?>
 
             <!-- HIDDEN VALUES -->
             <?php echo form_hidden(array('catagory_id' => $catagory->id)); ?>

@@ -26,9 +26,11 @@
 class Catagories extends Admin_Controller {
 
 
-	/*-------------------------- CONSTRUCTOR METHOD -------------------------------------*/
+	/*--------------------------0) CONSTRUCTOR METHOD -------------------------------------*/
 	public function __construct(){
 		parent::__construct();
+
+		$this->upload_path .= 'cats/';
 		$this->load->model(array('Cat_model', 'Cat_langs_model', 'Lang_model', 'Event_model'));
 
 		$this->data['page_section'] = 'catagories';
@@ -41,7 +43,7 @@ class Catagories extends Admin_Controller {
 
 
 
-	/*-------------------------- INDEX METHOD -------------------------------------*/
+	/*-------------------------- 1) INDEX METHOD -------------------------------------*/
 
 	public function index($cat_id = NULL){
 		if($cat_id === NULL){
@@ -59,7 +61,7 @@ class Catagories extends Admin_Controller {
 
 
 
-	/*-------------------------- ALL METHOD -------------------------------------*/
+	/*-------------------------- 2) ALL METHOD -------------------------------------*/
 	/**
 	 * Display all Catagories
 	 */
@@ -76,7 +78,7 @@ class Catagories extends Admin_Controller {
 
 
 
-	/*-------------------------- ID METHOD -------------------------------------*/
+	/*-------------------------- 3) ID METHOD -------------------------------------*/
 	/**
 	 * Display a Catagory
 	 */
@@ -86,6 +88,7 @@ class Catagories extends Admin_Controller {
 
 		if($this->Cat_model->get($cat_id)){
 			$this->data['catagory']      = $this->Cat_model->get($cat_id);
+			$this->data['default_photo'] = $this->_photo_path($cat_id) . 'default_photo.jpg';
 			$this->data['event_count']   = $this->Event_model->num_rows(array('catagory_id' => $cat_id));
 			$this->data['translations']  = $this->Cat_langs_model->get_where(array('cat_id' => $cat_id));
 			$this->data['all_languages'] = $this->Lang_model->get_all();
@@ -99,7 +102,7 @@ class Catagories extends Admin_Controller {
 
 
 
-	/*-------------------------- ADD METHOD -------------------------------------*/
+	/*-------------------------- 4) ADD METHOD -------------------------------------*/
 	/**
 	 * Add new catagory
 	 */
@@ -127,17 +130,30 @@ class Catagories extends Admin_Controller {
 				$cat_desc  = nl2br($this->input->post(trim('cat_desc')));
 
 
-				// Insert 'title' & 'summary' into 'Catagories' table of database
-				$this->Cat_model->save(array('default_title' => $cat_title, 'default_summary' => $cat_desc));
-						
-				// Success flash session message
-				$status = array(
-								'status' => 'success',
-								'msg'    =>  'You successfully created a new Catagory'
+				// Prep data for insertion
+				$data = array('default_title' => $cat_title,
+							  'default_summary' => $cat_desc
 							);
 
-				$this->session->set_flashdata('flash_msg', $status);
+				// Insert 'title' & 'summary' into 'Catagories' table of database
+				if($cat_id = $this->Cat_model->save($data)){
 
+					// Create upload director
+					$cat_dir = $this->upload_path . 'cat' . $cat_id . '/';
+					
+					mkdir($dir_path, 0777, TRUE);
+
+					// Success flash session message
+					$status = array(
+									'status' => 'success',
+									'msg'    =>  'You successfully created a new Catagory'
+								);
+
+					$this->session->set_flashdata('flash_msg', $status);
+
+				}
+						
+				
 				// Redirect to All Catagories page
 				redirect('admin/catagories/');
 
@@ -158,7 +174,7 @@ class Catagories extends Admin_Controller {
 
 
 
-	/*-------------------------- EDIT METHOD -------------------------------------*/
+	/*-------------------------- 5) EDIT METHOD -------------------------------------*/
 	/**
 	 * Edit a catagory
 	 */
@@ -218,7 +234,7 @@ class Catagories extends Admin_Controller {
 
 
 	
-	/*-------------------------- DELETE METHOD -------------------------------------*/
+	/*-------------------------- 6) DELETE METHOD -------------------------------------*/
 	/**
 	 * Delete catagory
 	 */
@@ -260,7 +276,7 @@ class Catagories extends Admin_Controller {
 
 
 
-	/*-------------------------- TRANSLATION METHOD -------------------------------------*/
+	/*-------------------------- 7) TRANSLATION METHOD -------------------------------------*/
 	/**
 	 * Handle Translations of a Catagory
 	 */
@@ -310,7 +326,7 @@ class Catagories extends Admin_Controller {
 				// Success flash session message
 				$status = array(
 								'status' => 'success',
-								'msg'    =>  'You have successfully add a new Translation'
+								'msg'    => 'You have successfully add a new Translation',
 							);
 
 				$this->session->set_flashdata('flash_msg', $status);
@@ -383,7 +399,7 @@ class Catagories extends Admin_Controller {
 
 			// Success flash session message
 			$status = array(
-							'status' => 'error',
+							'status' => 'success',
 							'msg'    =>  'You successfully deleted a Translation'
 						);
 
@@ -398,6 +414,63 @@ class Catagories extends Admin_Controller {
 
 	}/***** End translation() method ********/
 
+
+
+
+
+	/*----------------------------------------- 8) DO UPLOAD METHOD -------------------------------------*/
+
+	/**
+	 * Upload a default catagory photo
+	 */
+	public function photo($cat_id){
+
+		$config['upload_path']          = $this->upload_path . 'cat' . $cat_id. '/';
+	    $config['allowed_types']        = 'jpg';
+	    $config['max_size']             = 5000;
+	    $config['file_name']            = 'default_photo';
+	    $config['overwrite']            = TRUE;
+	    $config['file_ext_tolower']     = TRUE;
+
+
+	    $this->load->library('upload', $config);
+
+	    $upload_field = 'cat_photo';
+
+	    if ( ! $this->upload->do_upload($upload_field)){
+	            $error = array('error' => $this->upload->display_errors());
+
+	            // Error flash session message
+	            $status = array(
+	            				'status' => 'error',
+	            				'msg'    =>  $this->upload->display_errors('<span>', '</span>')
+	            			);
+
+	            $this->session->set_flashdata('flash_msg', $status);
+	           
+	    }else{
+	            $data = array('upload_data' => $this->upload->data());
+
+	           // Error flash session message
+	           $status = array(
+	           				'status' => 'success',
+	           				'msg'    =>  'You have successfully uploaded a default photo'
+	           			);
+
+	           $this->session->set_flashdata('flash_msg', $status);
+	    }
+
+	    redirect('admin/catagories/id/' . $cat_id);
+	} /****** End of do_upload() method **********/
+
+
+
+
+
+
+	protected function _photo_path($cat_id){
+		return $this->upload_path . 'cat' . $cat_id . '/';
+	}
 
 
 	
