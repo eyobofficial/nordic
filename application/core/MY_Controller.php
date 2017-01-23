@@ -74,6 +74,16 @@ class MY_Controller extends CI_Controller {
 
 
 
+	/**
+	 * Change default language
+	 */
+	public function change_language($lang_id){
+
+		echo 'Changing Langs';
+	}
+
+
+
 
 
 

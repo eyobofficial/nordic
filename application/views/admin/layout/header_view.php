@@ -25,7 +25,7 @@
 				<li><a href="#">Welcome <?php echo "John Doe"; ?></a> </li> /
 				<li><a href="#"><span class="fa fa-bell-o"></span> <sup><span class="badge">2</span></sup> </a> </li> /
 				<li><a href="#"><span class="fa fa-envelope-o"></span> <sup><span class="badge">2</span></sup> </a> </li> /
-				<li><a href="#" target="_blank">Visit Site</a> </li> /
+				<li><a href="<?php echo site_url(); ?>" target="_blank">Visit Site</a> </li> /
 				<li><a href="#"> Sign Out</a></li>
 			</ul>
 		</div><!-- /#menu -->
